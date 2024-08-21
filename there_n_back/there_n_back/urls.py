@@ -21,6 +21,7 @@ from logistics import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('admin/', admin.site.urls),
+    path('add_vehicle/', views.add_vehicle, name='add_vehicle'),
     path('client_dashboard/', views.client_dashboard, name='client_dashboard'),
     path('dispatcher_dashboard/', views.dispatcher_dashboard, name='dispatcher_dashboard'),
     path('register/client/', views.register_client, name='register_client'),

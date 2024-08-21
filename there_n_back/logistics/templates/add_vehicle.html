@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add a vehicle</title>
+</head>
+<body>
+    <h1>Add a vehicle</h1>
+    <a href="{% url 'dispatcher_dashboard' %}">
+        <button>Return to Dashboard</button>
+    </a>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add</button>
+    </form>
+</body>
+</html>

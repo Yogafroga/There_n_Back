@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import ClientRegistrationForm, DispatcherRegistrationForm
+from .forms import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from django.http import HttpResponse
@@ -15,6 +15,18 @@ def client_dashboard(request):
 @login_required
 def dispatcher_dashboard(request):
     return render(request, 'dispatcher_dashboard.html')
+
+@login_required
+def add_vehicle(request):
+    if request.method == 'POST':
+        form = AddVehicleForm(request.POST)
+        if form.is_valid():
+            vehicle = form.save()
+            return redirect('dispatcher_dashboard')
+    else:
+        form = AddVehicleForm()
+    return render(request, 'add_vehicle.html', {'form': form})
+
 
 def register_client(request):
     if request.method == 'POST':

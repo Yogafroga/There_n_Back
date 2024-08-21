@@ -5,6 +5,9 @@
 </head>
 <body>
     <h1>Welcome, {{ user.name }}!</h1>
-    <p>This is your client dashboard.</p>
+    <p>This is your dispatcher dashboard.</p>
+    <a href="{% url 'add_vehicle' %}">
+        <button>Add vehicle</button>
+    </a>
 </body>
 </html>
