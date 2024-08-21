@@ -16,7 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from logistics import views
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path('', views.home, name='home'),
+    path('admin/', admin.site.urls),
+    path('client_dashboard/', views.client_dashboard, name='client_dashboard'),
+    path('dispatcher_dashboard/', views.dispatcher_dashboard, name='dispatcher_dashboard'),
+    path('register/client/', views.register_client, name='register_client'),
+    path('register/dispatcher/', views.register_dispatcher, name='register_dispatcher'),
 ]
+

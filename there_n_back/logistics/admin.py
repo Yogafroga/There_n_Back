@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Client, Dispatcher
 
 class ClientAdmin(admin.ModelAdmin):
-    list_display = ('email', 'client_name', 'phone', 'type', 'is_active', 'date_joined')
+    list_display = ('email', 'name', 'phone', 'type', 'is_active', 'date_joined')
     ordering = ('email',)  # Измените на существующее поле, например, 'email'
 
 class DispatcherAdmin(admin.ModelAdmin):
