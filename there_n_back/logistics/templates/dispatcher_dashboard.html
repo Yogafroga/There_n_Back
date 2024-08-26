@@ -12,6 +12,9 @@
     <a href="{% url 'drivers' %}">
         <button>Drivers</button>
     </a>
+    <a href="{% url 'cities' %}">
+        <button>Cities</button>
+    </a>
     <form method="post" action="{% url 'logout' %}">
         {% csrf_token %}
         <button type="submit">Logout</button>

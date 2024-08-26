@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
+from .models import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from django.http import HttpResponse
@@ -17,6 +18,12 @@ def client_dashboard(request):
 def dispatcher_dashboard(request):
     return render(request, 'dispatcher_dashboard.html')
 
+
+# VEHICLES MANAGEMENT
+@login_required
+def crud_vehicles(request):
+    return render(request, 'vehicles.html', {'data': Vehicle.objects.all()})
+
 @login_required
 def add_vehicle(request):
     if request.method == 'POST':
@@ -28,10 +35,6 @@ def add_vehicle(request):
         form = AddVehicleForm()
     return render(request, 'add_vehicle.html', {'form': form})
 
-@login_required
-def crud_vehicles(request):
-    return render(request, 'vehicles.html', {'data': Vehicle.objects.all()})
-
 
 @login_required
 def delete_vehicle(request, pk):
@@ -42,7 +45,7 @@ def delete_vehicle(request, pk):
     return render(request, 'delete_item.html', {'object': obj})
 
 
-
+# DRIVERS MANAGEMENT
 @login_required
 def crud_drivers(request):
     return render(request, 'drivers.html', {'data': Driver.objects.all()})
@@ -68,14 +71,40 @@ def delete_driver(request, pk):
     return render(request, 'delete_item.html', {'object': obj})
 
 
+# CITIES MANAGEMENT
+@login_required
+def crud_cities(request):
+    return render(request, 'cities.html', {'data': City.objects.all()})
+
+
+@login_required
+def add_city(request):
+    if request.method == 'POST':
+        form = AddCityForm(request.POST)
+        if form.is_valid():
+            city = form.save()
+            return redirect('cities')
+    else:
+        form = AddCityForm()
+    return render(request, 'add_city.html', {'form': form})
+
+
+@login_required
+def delete_city(request, pk):
+    obj = get_object_or_404(City, id=pk)
+    if request.method == 'POST':
+        obj.delete()
+        return redirect('cities')
+    return render(request, 'delete_item.html', {'object': obj})
+
 
 def register_client(request):
     if request.method == 'POST':
         form = ClientRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)  # Авторизуем пользователя сразу после регистрации
-            return redirect('client_dashboard')  # Перенаправляем на главную страницу или другую страницу по вашему выбору
+            login(request, user)
+            return redirect('client_dashboard')
     else:
         form = ClientRegistrationForm()
     

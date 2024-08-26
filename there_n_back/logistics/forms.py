@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import CustomUser, Client, Dispatcher, Vehicle, Driver
+from .models import *
 from django.db import transaction
 
 class ClientRegistrationForm(UserCreationForm):
@@ -24,6 +24,10 @@ class AddDriverForm(forms.ModelForm):
         model = Driver
         fields = ['name', 'license_category', 'vehicle']
 
+class AddCityForm(forms.ModelForm):
+    class Meta:
+        model = City
+        fields = ['city_name', 'latitude', 'longitude']
 
 
 # class ClientSignUpForm(UserCreationForm):
