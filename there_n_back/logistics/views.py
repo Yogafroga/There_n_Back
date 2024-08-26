@@ -1,8 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from django.http import HttpResponse
+from django.views.generic import CreateView
 
 def home(request):
     return render(request, 'home.html')
@@ -22,10 +23,50 @@ def add_vehicle(request):
         form = AddVehicleForm(request.POST)
         if form.is_valid():
             vehicle = form.save()
-            return redirect('dispatcher_dashboard')
+            return redirect('vehicles')
     else:
         form = AddVehicleForm()
     return render(request, 'add_vehicle.html', {'form': form})
+
+@login_required
+def crud_vehicles(request):
+    return render(request, 'vehicles.html', {'data': Vehicle.objects.all()})
+
+
+@login_required
+def delete_vehicle(request, pk):
+    obj = get_object_or_404(Vehicle, id=pk)
+    if request.method == 'POST':
+        obj.delete()
+        return redirect('vehicles')
+    return render(request, 'delete_item.html', {'object': obj})
+
+
+
+@login_required
+def crud_drivers(request):
+    return render(request, 'drivers.html', {'data': Driver.objects.all()})
+
+@login_required
+def add_driver(request):
+    if request.method == 'POST':
+        form = AddDriverForm(request.POST)
+        if form.is_valid():
+            driver = form.save()
+            return redirect('drivers')
+    else:
+        form = AddDriverForm()
+    return render(request, 'add_driver.html', {'form': form})
+
+
+@login_required
+def delete_driver(request, pk):
+    obj = get_object_or_404(Driver, id=pk)
+    if request.method == 'POST':
+        obj.delete()
+        return redirect('drivers')
+    return render(request, 'delete_item.html', {'object': obj})
+
 
 
 def register_client(request):
@@ -52,3 +93,35 @@ def register_dispatcher(request):
         form = DispatcherRegistrationForm()
     
     return render(request, 'register_dispatcher.html', {'form': form})
+
+
+
+
+# class ClientSignUpView(CreateView):
+#     model = CustomUser
+#     form_class = ClientSignUpForm
+#     template_name = 'register_client.html'
+
+#     def get_context_data(self, **kwargs):
+#         kwargs['user_type'] = 'client'
+#         return super().get_context_data(**kwargs)
+
+#     def form_valid(self, form):
+#         user = form.save()
+#         login(self.request, user)
+#         return redirect('client_dashboard')
+    
+
+# class DispatcherSignUpView(CreateView):
+#     model = CustomUser
+#     form_class = DispatcherSignUpForm
+#     template_name = 'register_dispatcher.html'
+
+#     def get_context_data(self, **kwargs):
+#         kwargs['user_type'] = 'dispatcher'
+#         return super().get_context_data(**kwargs)
+
+#     def form_valid(self, form):
+#         user = form.save()
+#         login(self.request, user)
+#         return redirect('dispatcher_dashboard')

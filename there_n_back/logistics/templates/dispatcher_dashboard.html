@@ -6,8 +6,15 @@
 <body>
     <h1>Welcome, {{ user.name }}!</h1>
     <p>This is your dispatcher dashboard.</p>
-    <a href="{% url 'add_vehicle' %}">
-        <button>Add vehicle</button>
+    <a href="{% url 'vehicles' %}">
+        <button>Vehicles</button>
     </a>
+    <a href="{% url 'drivers' %}">
+        <button>Drivers</button>
+    </a>
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
 </body>
 </html>

@@ -17,14 +17,25 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from logistics import views
+from django.contrib.auth import views as auth_views
+
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(next_page='/'), name='logout'),
     path('admin/', admin.site.urls),
-    path('add_vehicle/', views.add_vehicle, name='add_vehicle'),
+    path('vehicles/', views.crud_vehicles, name='vehicles'),
+    path('vehicles/add/', views.add_vehicle, name='add_vehicle'),
+    path('vehicles/<int:pk>/delete/', views.delete_vehicle, name='delete_vehicle' ),
+    path('drivers/', views.crud_drivers, name='drivers'),
+    path('driver/add/', views.add_driver, name='add_driver'),
+    path('drivers/<int:pk>/delete/', views.delete_driver, name='delete_driver' ),
     path('client_dashboard/', views.client_dashboard, name='client_dashboard'),
     path('dispatcher_dashboard/', views.dispatcher_dashboard, name='dispatcher_dashboard'),
     path('register/client/', views.register_client, name='register_client'),
     path('register/dispatcher/', views.register_dispatcher, name='register_dispatcher'),
+    # path('register/client/', views.ClientSignUpView.as_view(), name='register_client'),
+    # path('register/dispatcher/', views.DispatcherSignUpView.as_view(), name='register_dispatcher'),
 ]
 

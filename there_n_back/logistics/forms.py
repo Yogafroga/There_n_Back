@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import Client, Dispatcher, Vehicle, Driver
+from .models import CustomUser, Client, Dispatcher, Vehicle, Driver
+from django.db import transaction
 
 class ClientRegistrationForm(UserCreationForm):
     class Meta:
@@ -18,5 +19,39 @@ class AddVehicleForm(forms.ModelForm):
         model = Vehicle
         fields = ['load_capacity', 'vehicle_type']
 
+class AddDriverForm(forms.ModelForm):
+    class Meta:
+        model = Driver
+        fields = ['name', 'license_category', 'vehicle']
 
-        
+
+
+# class ClientSignUpForm(UserCreationForm):
+
+#     phone = forms.CharField(max_length=20)
+#     type = forms.ChoiceField(choices=Client.CLIENT_TYPE_CHOICES)
+
+#     class Meta(UserCreationForm.Meta):
+#         model = CustomUser
+
+#     @transaction.atomic
+#     def save(self):
+#         user = super().save(commit=False)
+#         user.is_student = True
+#         user.save()
+#         client = Client.objects.create(user=user)
+#         client.phone = self.cleaned_data.get('phone')
+#         client.type = self.cleaned_data.get('type')
+#         return user
+
+    
+# class DispatcherSignUpForm(UserCreationForm):
+#     class Meta(UserCreationForm.Meta):
+#         model = CustomUser
+
+#     def save(self, commit=True):
+#         user = super().save(commit=False)
+#         user.is_dispatcher = True
+#         if commit:
+#             user.save()
+#         return user

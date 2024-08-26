@@ -88,6 +88,10 @@ DATABASES = {
 # Модель пользователя для клиентов
 AUTH_USER_MODEL = 'logistics.Client'
 
+LOGIN_REDIRECT_URL = '/client_dashboard/'  # Перенаправление после успешного входа
+LOGOUT_REDIRECT_URL = '/'  # Перенаправление после выхода
+LOGIN_URL = '/login/'  # Страница логина по умолчанию
+
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
