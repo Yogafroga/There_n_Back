@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add a shipment</title>
+</head>
+<body>
+    <h1>Add a shipment</h1>
+    <a href="{% url 'client_shipments' %}">
+        <button>Back</button>
+    </a>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add</button>
+    </form>
+</body>
+</html>

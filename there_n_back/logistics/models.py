@@ -141,6 +141,10 @@ class Driver(models.Model):
     def __str__(self):
         return self.name
 
+class Order(models.Model):
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    cargo_type = models.CharField(max_length=20)
+    city_commection = models.ForeignKey(CityConnection, on_delete=models.SET_NULL, null=True)
 
 class Shipment(models.Model):
     STATUS_CHOICES = [
@@ -150,19 +154,28 @@ class Shipment(models.Model):
         ('rejected', 'Rejected'),
     ]
 
+    # CARGO_TYPES = [
+    #     ('large', 'Large'),
+    #     ('medium', 'Medium'),
+    #     ('small', 'Small'),
+    # ]
+
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    pickup_city = models.ForeignKey(City, related_name='pickup_shipments', on_delete=models.SET_NULL, null=True)
-    delivery_city = models.ForeignKey(City, related_name='delivery_shipments', on_delete=models.SET_NULL, null=True)
+    # pickup_city = models.ForeignKey(City, related_name='pickup_shipments', on_delete=models.SET_NULL, null=True)
+    # delivery_city = models.ForeignKey(City, related_name='delivery_shipments', on_delete=models.SET_NULL, null=True)
     pickup_location = models.CharField(max_length=100)
     delivery_location = models.CharField(max_length=100)
-    distance = models.IntegerField()
-    cargo_type = models.CharField(max_length=20)
+    # distance = models.IntegerField()
+    # cargo_type = models.CharField(max_length=20)
     shipment_status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
     driver = models.ForeignKey(Driver, on_delete=models.CASCADE)
     vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
     planned_delivery = models.DateTimeField(default=timezone.now)
     dispatcher = models.ForeignKey(Dispatcher, on_delete=models.CASCADE)
     city_connection = models.ForeignKey(CityConnection, on_delete=models.SET_NULL, null=True, blank=True)
+    weight = models.DecimalField(max_digits=10, decimal_places=3)
+    volume = models.DecimalField(max_digits=10, decimal_places=3)
+    price = models.DecimalField(max_digits=10, decimal_places=3)
 
     def __str__(self):
         return f"Shipment {self.id} - {self.client}"

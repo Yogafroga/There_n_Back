@@ -29,6 +29,16 @@ class AddCityForm(forms.ModelForm):
         model = City
         fields = ['city_name', 'latitude', 'longitude']
 
+class AddRouteForm(forms.ModelForm):
+    class Meta:
+        model = CityConnection
+        fields = ['city1', 'city2']
+
+class AddShipmentForm(forms.ModelForm):
+    class Meta:
+        model = Shipment
+        fields = ['pickup_location', 'delivery_location', 'city_connection', 'weight', 'volume']
+
 
 # class ClientSignUpForm(UserCreationForm):
 

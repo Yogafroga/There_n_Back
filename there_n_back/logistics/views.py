@@ -5,6 +5,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from django.http import HttpResponse
 from django.views.generic import CreateView
+from math import acos, sin, cos, radians
+from datetime import timedelta
+import decimal
 
 def home(request):
     return render(request, 'home.html')
@@ -98,6 +101,75 @@ def delete_city(request, pk):
     return render(request, 'delete_item.html', {'object': obj})
 
 
+# ROUTES MANAGEMENT
+@login_required
+def crud_routes(request):
+    return render(request, 'routes.html', {'data': CityConnection.objects.all()})
+
+
+def calculate_distance(city1, city2):
+    # https://www.geeksforgeeks.org/great-circle-distance-formula/
+
+    lat1, lon1 = radians(city1.latitude), radians(city1.longitude)
+    lat2, lon2 = radians(city2.latitude), radians(city2.longitude)
+    r = 6371  # Earth's radius in kilometers
+
+    d = r * acos(cos(lat1)*cos(lat2)*cos(lon1-lon2) + sin(lat1)*sin(lat2))
+    return d
+
+@login_required
+def add_route(request):
+    if request.method == 'POST':
+        form = AddRouteForm(request.POST)
+        if form.is_valid():
+            
+            route = form.save(commit=False)
+            route.distance = calculate_distance(route.city1, route.city2)
+            route.save()
+            return redirect('routes')
+    else:
+        form = AddRouteForm()
+    return render(request, 'add_route.html', {'form': form})
+
+@login_required
+def delete_route(request, pk):
+    obj = get_object_or_404(CityConnection, id=pk)
+    if request.method == 'POST':
+        obj.delete()
+        return redirect('routes')
+    return render(request, 'delete_item.html', {'object': obj})
+
+
+# CLIENT SHIPMENTS MANAGEMENT
+@login_required
+def client_shipments(request):
+    return render(request, 'client_shipments.html', {'data': Shipment.objects.all()})
+
+def calculate_price(shipment):
+    return shipment.weight * shipment.volume * decimal.Decimal(1.25)
+
+@login_required
+def add_shipment(request):
+    if request.method == 'POST':
+        form = AddShipmentForm(request.POST)
+        if form.is_valid():            
+            shipment = form.save(commit=False)
+            shipment.client = request.user
+            shipment.driver = Driver.objects.first()
+            shipment.vehicle = Vehicle.objects.first()
+            shipment.planned_delivery = timezone.now() + timedelta(days=7)
+            shipment.dispatcher = Dispatcher.objects.first()
+            shipment.status = 'Pending'
+            shipment.price = calculate_price(shipment)
+            shipment.save()
+            return redirect('client_shipments')
+    else:
+        form = AddShipmentForm()
+    return render(request, 'add_shipment.html', {'form': form})
+
+
+
+# REGISTRATION
 def register_client(request):
     if request.method == 'POST':
         form = ClientRegistrationForm(request.POST)

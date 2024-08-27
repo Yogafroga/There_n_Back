@@ -38,6 +38,13 @@ urlpatterns = [
     path('cities/add/', views.add_city, name='add_city'),
     path('cities/<int:pk>/delete/', views.delete_city, name='delete_city'),
 
+    path('routes/', views.crud_routes, name='routes'),
+    path('routes/add/', views.add_route, name='add_route'),
+    path('routes/<int:pk>/delete/', views.delete_route, name='delete_route'),
+    
+    path('client_shipments/', views.client_shipments, name='client_shipments'),
+    path('client_shipments/add/', views.add_shipment, name='add_shipment'),
+
     path('client_dashboard/', views.client_dashboard, name='client_dashboard'),
     path('dispatcher_dashboard/', views.dispatcher_dashboard, name='dispatcher_dashboard'),
     path('register/client/', views.register_client, name='register_client'),
