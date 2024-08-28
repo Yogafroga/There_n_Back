@@ -6,6 +6,9 @@
 <body>
     <h1>Welcome, {{ user.name }}!</h1>
     <p>This is your client dashboard.</p>
+    <a href="{% url 'client_orders' %}">
+        <button>Orders</button>
+    </a>
     <a href="{% url 'client_shipments' %}">
         <button>Shipments</button>
     </a>

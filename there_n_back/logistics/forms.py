@@ -34,10 +34,10 @@ class AddRouteForm(forms.ModelForm):
         model = CityConnection
         fields = ['city1', 'city2']
 
-class AddShipmentForm(forms.ModelForm):
+class AddOrderForm(forms.ModelForm):
     class Meta:
-        model = Shipment
-        fields = ['pickup_location', 'delivery_location', 'city_connection', 'weight', 'volume']
+        model = Order
+        fields = ['city_connection', 'pickup_location', 'delivery_location', 'planned_delivery', 'weight', 'volume']
 
 
 # class ClientSignUpForm(UserCreationForm):

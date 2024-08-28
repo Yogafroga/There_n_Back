@@ -140,33 +140,27 @@ def delete_route(request, pk):
     return render(request, 'delete_item.html', {'object': obj})
 
 
-# CLIENT SHIPMENTS MANAGEMENT
+# CLIENT SHIPMENTS AND ORDERS MANAGEMENT
 @login_required
 def client_shipments(request):
     return render(request, 'client_shipments.html', {'data': Shipment.objects.all()})
 
-def calculate_price(shipment):
-    return shipment.weight * shipment.volume * decimal.Decimal(1.25)
+@login_required
+def client_orders(request):
+    return render(request, 'client_orders.html', {'data': Order.objects.all()})
 
 @login_required
-def add_shipment(request):
+def add_order(request):
     if request.method == 'POST':
-        form = AddShipmentForm(request.POST)
+        form = AddOrderForm(request.POST)
         if form.is_valid():            
-            shipment = form.save(commit=False)
-            shipment.client = request.user
-            shipment.driver = Driver.objects.first()
-            shipment.vehicle = Vehicle.objects.first()
-            shipment.planned_delivery = timezone.now() + timedelta(days=7)
-            shipment.dispatcher = Dispatcher.objects.first()
-            shipment.status = 'Pending'
-            shipment.price = calculate_price(shipment)
-            shipment.save()
-            return redirect('client_shipments')
+            order = form.save(commit=False)
+            order.client = request.user
+            order.save()
+            return redirect('client_orders')
     else:
-        form = AddShipmentForm()
-    return render(request, 'add_shipment.html', {'form': form})
-
+        form = AddOrderForm()
+    return render(request, 'add_order.html', {'form': form})
 
 
 # REGISTRATION
@@ -196,6 +190,10 @@ def register_dispatcher(request):
     return render(request, 'register_dispatcher.html', {'form': form})
 
 
+
+def calculate_price(shipment):
+    return shipment.weight * shipment.volume * decimal.Decimal(1.25)
+    
 
 
 # class ClientSignUpView(CreateView):

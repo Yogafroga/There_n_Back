@@ -143,8 +143,12 @@ class Driver(models.Model):
 
 class Order(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    cargo_type = models.CharField(max_length=20)
-    city_commection = models.ForeignKey(CityConnection, on_delete=models.SET_NULL, null=True)
+    city_connection = models.ForeignKey(CityConnection, on_delete=models.SET_NULL, null=True)
+    pickup_location = models.CharField(max_length=100)
+    delivery_location = models.CharField(max_length=100)
+    planned_delivery = models.DateTimeField(default=timezone.now)
+    weight = models.DecimalField(max_digits=10, decimal_places=3)
+    volume = models.DecimalField(max_digits=10, decimal_places=3)
 
 class Shipment(models.Model):
     STATUS_CHOICES = [

@@ -41,9 +41,10 @@ urlpatterns = [
     path('routes/', views.crud_routes, name='routes'),
     path('routes/add/', views.add_route, name='add_route'),
     path('routes/<int:pk>/delete/', views.delete_route, name='delete_route'),
-    
+
     path('client_shipments/', views.client_shipments, name='client_shipments'),
-    path('client_shipments/add/', views.add_shipment, name='add_shipment'),
+    path('client_orders/', views.client_orders, name='client_orders'),
+    path('client_orders/add/', views.add_order, name='add_order'),
 
     path('client_dashboard/', views.client_dashboard, name='client_dashboard'),
     path('dispatcher_dashboard/', views.dispatcher_dashboard, name='dispatcher_dashboard'),
