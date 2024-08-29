@@ -7,23 +7,22 @@
 </head>
 <body>
     <h1>Orders</h1>
-    <a href="{% url 'client_dashboard' %}">
+    <a href="{% url 'dispatcher_dashboard' %}">
         <button>Back</button>
     </a><br>
-    <a href="{% url 'add_order' %}">
-        <button>Add order</button>
-    </a>
     <div class="main">
         
         {% for item in data %}
-        <p style="{% if item.status == 'rejected' %} color:red {% else %} color:black {% endif %}">
         {{ item.city_connection }}<br/>
         {{ item.pickup_location }}<br/>
         {{ item.delivery_location }}<br/>
         {{ item.planned_delivery }}<br/>
         {{ item.weight }}<br/>
         {{ item.volume }}<br/>
-        </p>
+        <a href="{% url 'view_order' item.id %}">View</a>
+        <a href="{% url 'reject_order' item.id %}">
+            <button>Reject</button>
+        </a>
         <hr/>
     
         {% endfor %}

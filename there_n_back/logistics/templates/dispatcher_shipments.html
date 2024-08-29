@@ -7,12 +7,13 @@
 </head>
 <body>
     <h1>Shipments</h1>
-    <a href="{% url 'client_dashboard' %}">
+    <a href="{% url 'dispatcher_dashboard' %}">
         <button>Back</button>
     </a><br>
     <div class="main">
         
         {% for item in data %}
+        {{ item.order.client }}<br/>
         {{ item.order.city_connection }}<br/>
         {{ item.order.pickup_location }}<br/>
         {{ item.order.delivery_location }}<br/>

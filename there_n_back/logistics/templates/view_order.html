@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Order</title>
+</head>
+<body>
+    <h1>View Order</h1>
+    <a href="{% url 'dispatcher_orders' %}">
+        <button>Back</button>
+    </a><br>
+
+    {{ item.city_connection }}<br/>
+    {{ item.pickup_location }}<br/>
+    {{ item.delivery_location }}<br/>
+    {{ item.planned_delivery }}<br/>
+    {{ item.weight }}<br/>
+    {{ item.volume }}<br/>
+    <h2>Create Shipment Based On The Order</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Approve</button>
+    </form>
+</body>
+</html>

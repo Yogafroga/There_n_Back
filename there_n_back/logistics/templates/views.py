@@ -196,7 +196,6 @@ def view_order(request, pk):
             shipment.status = 'in_transit'
             shipment.price = calculate_price(order)
             order.status = 'accepted'
-            order.save()
             shipment.save()            
             return redirect('dispatcher_orders')
 
@@ -208,7 +207,6 @@ def reject_order(request, pk):
     order = get_object_or_404(Order, id=pk)
     if request.method == 'POST':
         order.status = 'rejected'
-        order.save()
         return redirect('dispatcher_orders')
     return render(request, 'reject_order.html', {'object': order})
 

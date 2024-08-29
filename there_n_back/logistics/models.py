@@ -72,7 +72,7 @@ class Client(CustomUser):
     
 
     def __str__(self):
-        return self.client_name
+        return self.name
 
     class Meta:
         verbose_name = 'Client'
@@ -137,11 +137,18 @@ class Driver(models.Model):
     name = models.CharField(max_length=50)
     license_category = models.CharField(max_length=1, choices=LICENSE_CATEGORIES)
     vehicle = models.ForeignKey(Vehicle, on_delete=models.SET_NULL, null=True, blank=True)
+    is_available = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
 
 class Order(models.Model):
+    ORDER_STATUS = [
+        ('pending', 'Pending'),
+        ('rejected', 'Rejected'),
+        ('accepted', 'Accepted'),
+    ]
+
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     city_connection = models.ForeignKey(CityConnection, on_delete=models.SET_NULL, null=True)
     pickup_location = models.CharField(max_length=100)
@@ -149,40 +156,26 @@ class Order(models.Model):
     planned_delivery = models.DateTimeField(default=timezone.now)
     weight = models.DecimalField(max_digits=10, decimal_places=3)
     volume = models.DecimalField(max_digits=10, decimal_places=3)
+    status = models.CharField(max_length=20, choices=ORDER_STATUS, default='pending')
+
+    def __str__(self):
+        return f"Order {self.id} by {self.client.name}"
 
 class Shipment(models.Model):
-    STATUS_CHOICES = [
-        ('pending', 'Pending'),
+    SHIPMENT_STATUS = [
         ('in_transit', 'In Transit'),
         ('delivered', 'Delivered'),
-        ('rejected', 'Rejected'),
     ]
 
-    # CARGO_TYPES = [
-    #     ('large', 'Large'),
-    #     ('medium', 'Medium'),
-    #     ('small', 'Small'),
-    # ]
-
-    client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    # pickup_city = models.ForeignKey(City, related_name='pickup_shipments', on_delete=models.SET_NULL, null=True)
-    # delivery_city = models.ForeignKey(City, related_name='delivery_shipments', on_delete=models.SET_NULL, null=True)
-    pickup_location = models.CharField(max_length=100)
-    delivery_location = models.CharField(max_length=100)
-    # distance = models.IntegerField()
-    # cargo_type = models.CharField(max_length=20)
-    shipment_status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    order = models.OneToOneField(Order, on_delete=models.CASCADE, related_name="shipment")
+    status = models.CharField(max_length=20, choices=SHIPMENT_STATUS, default='in_transit')
     driver = models.ForeignKey(Driver, on_delete=models.CASCADE)
-    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
-    planned_delivery = models.DateTimeField(default=timezone.now)
+    # vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
     dispatcher = models.ForeignKey(Dispatcher, on_delete=models.CASCADE)
-    city_connection = models.ForeignKey(CityConnection, on_delete=models.SET_NULL, null=True, blank=True)
-    weight = models.DecimalField(max_digits=10, decimal_places=3)
-    volume = models.DecimalField(max_digits=10, decimal_places=3)
     price = models.DecimalField(max_digits=10, decimal_places=3)
 
     def __str__(self):
-        return f"Shipment {self.id} - {self.client}"
+        return f"Shipment {self.order} - {self.status}"
 
 
 class ShipmentReview(models.Model):
@@ -197,7 +190,7 @@ class ShipmentReview(models.Model):
 
 class ShipmentStatusHistory(models.Model):
     shipment = models.ForeignKey(Shipment, on_delete=models.CASCADE)
-    status = models.CharField(max_length=20, choices=Shipment.STATUS_CHOICES)
+    status = models.CharField(max_length=20, choices=Shipment.SHIPMENT_STATUS)
     timestamp = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
