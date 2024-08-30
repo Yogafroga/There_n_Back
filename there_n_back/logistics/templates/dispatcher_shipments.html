@@ -22,9 +22,11 @@
         {{ item.order.volume }}<br/>
         {{ item.status }}<br/>
         {{ item.driver }}<br/>
-        {{ item.vehicle }}<br/>
         {{ item.dispatcher }}<br/>
         {{ item.price }}<br/>
+        <a href="{% url 'mark_shipment' item.id %}">
+            <button>Mark As Delivered</button>
+        </a>
         <hr/>
     
         {% endfor %}

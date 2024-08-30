@@ -43,6 +43,15 @@ class AddShipmentForm(forms.ModelForm):
     class Meta:
         model = Shipment
         fields = ['driver', 'dispatcher']
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['driver'].queryset = Driver.objects.filter(is_available=True)
+
+# class AddShipmentForm(forms.Form):
+#     driver = forms.ModelChoiceField(queryset=Driver.objects.filter(is_available=True))
+#     dispatcher = forms.ModelChoiceField(queryset=Dispatcher.objects.all())
+
+#AddShipmentFormSet = forms.modelformset_factory(Shipment, fields=['driver', 'dispatcher'], queryset=)
 
 
 # class ClientSignUpForm(UserCreationForm):

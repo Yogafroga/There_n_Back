@@ -136,7 +136,8 @@ class Driver(models.Model):
     
     name = models.CharField(max_length=50)
     license_category = models.CharField(max_length=1, choices=LICENSE_CATEGORIES)
-    vehicle = models.ForeignKey(Vehicle, on_delete=models.SET_NULL, null=True, blank=True)
+    # vehicle = models.ForeignKey(Vehicle, on_delete=models.SET_NULL, null=True, blank=True)
+    vehicle = models.OneToOneField(Vehicle, on_delete=models.CASCADE)
     is_available = models.BooleanField(default=True)
 
     def __str__(self):

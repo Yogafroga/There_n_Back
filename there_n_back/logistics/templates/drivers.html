@@ -20,6 +20,7 @@
         {{ item.name }}<br/>
         {{ item.license_category }}<br/>
         {{ item.vehicle }}<br/>
+        {{ item.is_available }}<br/>
         <a href="{% url 'delete_driver' item.id %}">
             <button>Delete</button>
         </a>

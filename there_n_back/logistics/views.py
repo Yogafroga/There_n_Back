@@ -181,6 +181,14 @@ def dispatcher_shipments(request):
     # Add shipments related to that dispatcher
     return render(request, 'dispatcher_shipments.html', {'data': Shipment.objects.all()})
 
+@login_required
+def mark_shipment(request, pk):
+    obj = get_object_or_404(Shipment, id = pk)
+    if request.method == 'POST':
+        obj.status = 'delivered'
+        obj.save()
+        return redirect('dispatcher_shipments')
+    return render(request,'mark_shipment.html')
 
 def calculate_price(order):
     return order.weight * order.volume * order.city_connection.distance * decimal.Decimal(0.5)
@@ -188,19 +196,27 @@ def calculate_price(order):
 @login_required
 def view_order(request, pk):
     order = get_object_or_404(Order, id=pk)
-    form = AddShipmentForm(request.POST)
-    if request.method == 'POST':
-        if form.is_valid():
-            shipment = form.save(commit=False)
-            shipment.order = order
-            shipment.status = 'in_transit'
-            shipment.price = calculate_price(order)
-            order.status = 'accepted'
-            order.save()
-            shipment.save()            
-            return redirect('dispatcher_orders')
+    if Driver.objects.filter(is_available=True).exists():
+        form = AddShipmentForm(request.POST)
+        if request.method == 'POST':
+            if form.is_valid():
+                shipment = form.save(commit=False)
+                shipment.order = order
+                shipment.status = 'in_transit'
+                shipment.price = calculate_price(order)
+                order.status = 'accepted'
+                order.save()
+                driver = shipment.driver
+                driver.is_available = False
+                driver.save()
+                shipment.save()            
+                return redirect('dispatcher_orders')
+        return render(request, 'view_order.html', {'item': order, 'form': form})
+    else:
+        return render(request, 'view_order_no_driver.html', {'item': order})
+        
 
-    return render(request, 'view_order.html', {'item': order, 'form': form})
+    
 
 
 @login_required

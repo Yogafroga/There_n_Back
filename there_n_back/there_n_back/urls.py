@@ -49,6 +49,7 @@ urlpatterns = [
     path('dispatcher_orders/<int:pk>/view/', views.view_order, name='view_order'),
     path('dispatcher_shipments/', views.dispatcher_shipments, name='dispatcher_shipments'),
     path('dispatcher_orders/<int:pk>/reject/', views.reject_order, name='reject_order'),
+    path('dispatcher_shipments/<int:pk>/mark_shipment/', views.mark_shipment, name='mark_shipment'),
 
     path('client_dashboard/', views.client_dashboard, name='client_dashboard'),
     path('dispatcher_dashboard/', views.dispatcher_dashboard, name='dispatcher_dashboard'),
