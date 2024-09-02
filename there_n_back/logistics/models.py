@@ -180,7 +180,7 @@ class Shipment(models.Model):
 
 
 class ShipmentReview(models.Model):
-    shipment = models.ForeignKey(Shipment, on_delete=models.CASCADE)
+    shipment = models.ForeignKey(Shipment, on_delete=models.CASCADE, related_name='reviews')
     val = models.IntegerField(choices=[(i, str(i)) for i in range(1, 6)])
     contents = models.CharField(max_length=100)
     review_date = models.DateTimeField(default=timezone.now)

@@ -24,9 +24,13 @@
         {{ item.driver }}<br/>
         {{ item.dispatcher }}<br/>
         {{ item.price }}<br/>
-        <a href="{% url 'mark_shipment' item.id %}">
-            <button>Mark As Delivered</button>
-        </a>
+        <hr/>
+        <b>Review</b><br/>
+        {% for review in item.reviews.all %}
+        {{ review.val }}<br/>
+        {{ review.contents }}<br/>
+        {{ review.review_date }}<br/>
+        {% endfor %}
         <hr/>
         
     

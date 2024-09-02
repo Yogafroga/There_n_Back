@@ -145,8 +145,17 @@ def delete_route(request, pk):
 def client_shipments(request):
     # Select shipments related to that user's orders
     orders = Order.objects.filter(client=request.user)
-    data = Shipment.objects.filter(order__in = orders)
+    data = Shipment.objects.filter(order__in = orders, status='in_transit')
     return render(request, 'client_shipments.html', {'data': data})
+
+@login_required
+def client_delivered(request):
+    # Select delivered shipments related to that user's orders
+    orders = Order.objects.filter(client=request.user)
+    data = Shipment.objects.filter(order__in = orders, status='delivered')
+    return render(request, 'client_delivered.html', {'data': data})
+
+
 
 @login_required
 def client_orders(request):
@@ -168,6 +177,21 @@ def add_order(request):
         form = AddOrderForm()
     return render(request, 'add_order.html', {'form': form})
 
+@login_required
+def leave_review(request, pk):
+    if request.method == 'POST':
+        form = AddReviewForm(request.POST)
+        if form.is_valid():
+            shipment = get_object_or_404(Shipment, pk=pk)            
+            review = form.save(commit=False)
+            review.shipment = shipment
+            review.save()
+            return redirect('client_delivered')
+    else:
+        form = AddReviewForm()
+    return render(request, 'leave_review.html', {'form': form})
+
+
 
 
 # DISPATCHER SHIPMENTS AND ORDERS MANAGEMENT
@@ -179,7 +203,7 @@ def dispatcher_orders(request):
 @login_required
 def dispatcher_shipments(request):
     # Add shipments related to that dispatcher
-    return render(request, 'dispatcher_shipments.html', {'data': Shipment.objects.all()})
+    return render(request, 'dispatcher_shipments.html', {'data': Shipment.objects.filter(status='in_transit')})
 
 @login_required
 def mark_shipment(request, pk):
@@ -227,6 +251,11 @@ def reject_order(request, pk):
         order.save()
         return redirect('dispatcher_orders')
     return render(request, 'reject_order.html', {'object': order})
+
+
+@login_required
+def dispatcher_delivered(request):
+    return render(request, 'dispatcher_delivered.html', {'data': Shipment.objects.filter(status='delivered')})
 
 
 # REGISTRATION

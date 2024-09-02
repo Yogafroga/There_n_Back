@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leave a Review</title>
+</head>
+<body>
+    <h1>Leave a Review</h1>
+    <a href="{% url 'client_delivered' %}">
+        <button>Back</button>
+    </a>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add</button>
+    </form>
+</body>
+</html>

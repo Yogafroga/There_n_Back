@@ -45,11 +45,15 @@ urlpatterns = [
     path('client_shipments/', views.client_shipments, name='client_shipments'),
     path('client_orders/', views.client_orders, name='client_orders'),
     path('client_orders/add/', views.add_order, name='add_order'),
+    path('client_delivered/', views.client_delivered, name='client_delivered'),
+    path('client_delivered/<int:pk>/leave_review/', views.leave_review, name='leave_review'),
+
     path('dispatcher_orders/', views.dispatcher_orders, name='dispatcher_orders'),
     path('dispatcher_orders/<int:pk>/view/', views.view_order, name='view_order'),
     path('dispatcher_shipments/', views.dispatcher_shipments, name='dispatcher_shipments'),
     path('dispatcher_orders/<int:pk>/reject/', views.reject_order, name='reject_order'),
     path('dispatcher_shipments/<int:pk>/mark_shipment/', views.mark_shipment, name='mark_shipment'),
+    path('dispatcher_delivered/', views.dispatcher_delivered, name='dispatcher_delivered'),
 
     path('client_dashboard/', views.client_dashboard, name='client_dashboard'),
     path('dispatcher_dashboard/', views.dispatcher_dashboard, name='dispatcher_dashboard'),

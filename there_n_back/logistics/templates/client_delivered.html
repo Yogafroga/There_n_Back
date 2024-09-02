@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shipments</title>
+    <title>Delivered Shipments</title>
 </head>
 <body>
-    <h1>Shipments</h1>
-    <a href="{% url 'dispatcher_dashboard' %}">
+    <h1>Delivered Shipments</h1>
+    <a href="{% url 'client_dashboard' %}">
         <button>Back</button>
     </a><br>
     <div class="main">
         
         {% for item in data %}
-        {{ item.order.client }}<br/>
         {{ item.order.city_connection }}<br/>
         {{ item.order.pickup_location }}<br/>
         {{ item.order.delivery_location }}<br/>
@@ -24,11 +23,18 @@
         {{ item.driver }}<br/>
         {{ item.dispatcher }}<br/>
         {{ item.price }}<br/>
-        <a href="{% url 'mark_shipment' item.id %}">
-            <button>Mark As Delivered</button>
+        <hr/>
+        <a href="{% url 'leave_review' item.id %}">
+            <button>Leave Review</button>
         </a>
         <hr/>
-        
+        <b>Reviews</b><br/>
+        {% for review in item.reviews.all %}
+        {{ review.val }}<br/>
+        {{ review.contents }}<br/>
+        {{ review.review_date }}<br/>
+        {% endfor %}
+        <hr/>
     
         {% endfor %}
     

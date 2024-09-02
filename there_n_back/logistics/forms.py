@@ -39,6 +39,12 @@ class AddOrderForm(forms.ModelForm):
         model = Order
         fields = ['city_connection', 'pickup_location', 'delivery_location', 'planned_delivery', 'weight', 'volume']
 
+class AddReviewForm(forms.ModelForm):
+    class Meta:
+        model = ShipmentReview
+        fields = ['val', 'contents']
+
+
 class AddShipmentForm(forms.ModelForm):
     class Meta:
         model = Shipment
