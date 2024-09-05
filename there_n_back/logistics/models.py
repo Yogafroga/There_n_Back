@@ -189,10 +189,10 @@ class ShipmentReview(models.Model):
         return f"Review {self.id} for Shipment {self.shipment.id}"
 
 
-class ShipmentStatusHistory(models.Model):
-    shipment = models.ForeignKey(Shipment, on_delete=models.CASCADE)
-    status = models.CharField(max_length=20, choices=Shipment.SHIPMENT_STATUS)
-    timestamp = models.DateTimeField(default=timezone.now)
+# class ShipmentStatusHistory(models.Model):
+#     shipment = models.ForeignKey(Shipment, on_delete=models.CASCADE)
+#     status = models.CharField(max_length=20, choices=Shipment.SHIPMENT_STATUS)
+#     timestamp = models.DateTimeField(default=timezone.now)
 
-    def __str__(self):
-        return f"Status {self.status} at {self.timestamp} for Shipment {self.shipment.id}"
+#     def __str__(self):
+#         return f"Status {self.status} at {self.timestamp} for Shipment {self.shipment.id}"
