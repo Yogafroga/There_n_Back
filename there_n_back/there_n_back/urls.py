@@ -27,8 +27,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # path('register/',views.register, name='register'),
-    path('customer_register/',views.client_register.as_view(), name='customer_register'),
-    path('employee_register/',views.dispatcher_register.as_view(), name='employee_register'),
+    path('register/client',views.client_register.as_view(), name='client_register'),
+    path('register/dispatcher',views.dispatcher_register.as_view(), name='dispatcher_register'),
     path('login/',views.login_request, name='login'),
     path('logout/',views.logout_view, name='logout'),
 
