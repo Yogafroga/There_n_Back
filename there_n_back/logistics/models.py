@@ -1,102 +1,147 @@
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth.models import AbstractUser, AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 from django.utils import timezone
 
+## Custom User registration
 
+# class User(AbstractUser):
+#     is_customer = models.BooleanField(default=False)
+#     is_employee = models.BooleanField(default=False)
+#     first_name = models.CharField(max_length=100)
+#     last_name = models.CharField(max_length=100)
 
-class ClientManager(BaseUserManager):
-    def create_user(self, email, password=None, **extra_fields):
-        if not email:
-            raise ValueError('The Email field must be set')
-        email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
-        user.set_password(password)
-        user.save(using=self._db)
-        return user
+# class Customer(models.Model):
+#     user = models.OneToOneField(User, on_delete = models.CASCADE, primary_key = True)
+#     phone_number = models.CharField(max_length=20)
+#     location = models.CharField(max_length=20)
 
-    def create_superuser(self, email, password=None, **extra_fields):
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
+# class Employee(models.Model):
+#     user = models.OneToOneField(User, on_delete = models.CASCADE, primary_key = True)
+#     phone_number = models.CharField(max_length=20)
+#     designation = models.CharField(max_length=20)
 
-        return self.create_user(email, password, **extra_fields)
+class User(AbstractUser):
+    is_client = models.BooleanField(default=False)
+    is_dispatcher = models.BooleanField(default=False)
+    name = models.CharField(max_length=100)
+    email = models.EmailField(max_length=50, unique=True)
 
-class DispatcherManager(BaseUserManager):
-    def create_user(self, email, password=None, **extra_fields):
-        if not email:
-            raise ValueError('The Email field must be set')
-        email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
-        user.set_password(password)
-        user.save(using=self._db)
-        return user
+    def __str__(self):
+        return self.name
 
-    def create_superuser(self, email, password=None, **extra_fields):
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
-
-        return self.create_user(email, password, **extra_fields)
-
-
-class CustomUser(AbstractBaseUser, PermissionsMixin):
-    groups = models.ManyToManyField(
-        'auth.Group',
-        related_name='%(class)s_groups',  # Уникальное имя для обратной связи
-        blank=True,
-    )
-    user_permissions = models.ManyToManyField(
-        'auth.Permission',
-        related_name='%(class)s_permissions',  # Уникальное имя для обратной связи
-        blank=True,
-    )
-
-
-class Client(CustomUser):
-
+class Client(models.Model):
+    user = models.OneToOneField(User, on_delete = models.CASCADE, primary_key = True)
     CLIENT_TYPE_CHOICES = [
-        ('physical', 'Physical'),
+        ('individual', 'Individual'),
         ('legal', 'Legal'),
     ]
-
-    name = models.CharField(max_length=50)
     phone = models.CharField(max_length=20)
-    email = models.EmailField(max_length=50, unique=True)
     type = models.CharField(max_length=10, choices=CLIENT_TYPE_CHOICES)
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
-    date_joined = models.DateTimeField(default=timezone.now)
 
-    objects = ClientManager()
+    # def __str__(self):
+    #     return super().name
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['name', 'phone', 'type']
+class Dispatcher(models.Model):
+    user = models.OneToOneField(User, on_delete = models.CASCADE, primary_key = True)
+
+    # def __str__(self):
+    #     return self.name
+
+
+
+# class ClientManager(BaseUserManager):
+#     def create_user(self, email, password=None, **extra_fields):
+#         if not email:
+#             raise ValueError('The Email field must be set')
+#         email = self.normalize_email(email)
+#         user = self.model(email=email, **extra_fields)
+#         user.set_password(password)
+#         user.save(using=self._db)
+#         return user
+
+#     def create_superuser(self, email, password=None, **extra_fields):
+#         extra_fields.setdefault('is_staff', True)
+#         extra_fields.setdefault('is_superuser', True)
+
+#         return self.create_user(email, password, **extra_fields)
+
+# class DispatcherManager(BaseUserManager):
+#     def create_user(self, email, password=None, **extra_fields):
+#         if not email:
+#             raise ValueError('The Email field must be set')
+#         email = self.normalize_email(email)
+#         user = self.model(email=email, **extra_fields)
+#         user.set_password(password)
+#         user.save(using=self._db)
+#         return user
+
+#     def create_superuser(self, email, password=None, **extra_fields):
+#         extra_fields.setdefault('is_staff', True)
+#         extra_fields.setdefault('is_superuser', True)
+
+#         return self.create_user(email, password, **extra_fields)
+
+
+# class CustomUser(AbstractBaseUser, PermissionsMixin):
+#     groups = models.ManyToManyField(
+#         'auth.Group',
+#         related_name='%(class)s_groups',  # Уникальное имя для обратной связи
+#         blank=True,
+#     )
+#     user_permissions = models.ManyToManyField(
+#         'auth.Permission',
+#         related_name='%(class)s_permissions',  # Уникальное имя для обратной связи
+#         blank=True,
+#     )
+
+
+# class Client(CustomUser):
+
+#     CLIENT_TYPE_CHOICES = [
+#         ('physical', 'Physical'),
+#         ('legal', 'Legal'),
+#     ]
+
+#     name = models.CharField(max_length=50)
+#     phone = models.CharField(max_length=20)
+#     email = models.EmailField(max_length=50, unique=True)
+#     type = models.CharField(max_length=10, choices=CLIENT_TYPE_CHOICES)
+#     is_active = models.BooleanField(default=True)
+#     is_staff = models.BooleanField(default=False)
+#     date_joined = models.DateTimeField(default=timezone.now)
+
+#     objects = ClientManager()
+
+#     USERNAME_FIELD = 'email'
+#     REQUIRED_FIELDS = ['name', 'phone', 'type']
     
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
 
-    class Meta:
-        verbose_name = 'Client'
-        verbose_name_plural = 'Clients'
+#     class Meta:
+#         verbose_name = 'Client'
+#         verbose_name_plural = 'Clients'
 
 
-class Dispatcher(CustomUser):
-    name = models.CharField(max_length=50)
-    email = models.EmailField(max_length=50, unique=True)
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
-    date_joined = models.DateTimeField(default=timezone.now)
+# class Dispatcher(CustomUser):
+#     name = models.CharField(max_length=50)
+#     email = models.EmailField(max_length=50, unique=True)
+#     is_active = models.BooleanField(default=True)
+#     is_staff = models.BooleanField(default=False)
+#     date_joined = models.DateTimeField(default=timezone.now)
 
-    objects = DispatcherManager()
+#     objects = DispatcherManager()
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['name']
+#     USERNAME_FIELD = 'email'
+#     REQUIRED_FIELDS = ['name']
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
 
-    class Meta:
-        verbose_name = 'Dispatcher'
-        verbose_name_plural = 'Dispatchers'
+#     class Meta:
+#         verbose_name = 'Dispatcher'
+#         verbose_name_plural = 'Dispatchers'
 
 
 class City(models.Model):
@@ -154,7 +199,7 @@ class Order(models.Model):
     city_connection = models.ForeignKey(CityConnection, on_delete=models.SET_NULL, null=True)
     pickup_location = models.CharField(max_length=100)
     delivery_location = models.CharField(max_length=100)
-    planned_delivery = models.DateTimeField(default=timezone.now)
+    planned_delivery = models.DateField(default=timezone.now())
     weight = models.DecimalField(max_digits=10, decimal_places=3)
     volume = models.DecimalField(max_digits=10, decimal_places=3)
     status = models.CharField(max_length=20, choices=ORDER_STATUS, default='pending')

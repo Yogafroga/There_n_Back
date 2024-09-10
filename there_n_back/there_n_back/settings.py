@@ -86,7 +86,7 @@ DATABASES = {
 }
 
 # Модель пользователя для клиентов
-AUTH_USER_MODEL = 'logistics.Client'
+AUTH_USER_MODEL = 'logistics.User'
 
 LOGIN_REDIRECT_URL = '/client_dashboard/'  # Перенаправление после успешного входа
 LOGOUT_REDIRECT_URL = '/'  # Перенаправление после выхода

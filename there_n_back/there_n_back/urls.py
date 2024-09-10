@@ -22,9 +22,17 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(next_page='/'), name='logout'),
+    # path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    # path('logout/', auth_views.LogoutView.as_view(next_page='/'), name='logout'),
     path('admin/', admin.site.urls),
+
+    # path('register/',views.register, name='register'),
+    path('customer_register/',views.client_register.as_view(), name='customer_register'),
+    path('employee_register/',views.dispatcher_register.as_view(), name='employee_register'),
+    path('login/',views.login_request, name='login'),
+    path('logout/',views.logout_view, name='logout'),
+
+    path('np_access/',views.no_access, name='no_access'),
     
     path('vehicles/', views.crud_vehicles, name='vehicles'),
     path('vehicles/add/', views.add_vehicle, name='add_vehicle'),
@@ -57,8 +65,8 @@ urlpatterns = [
 
     path('client_dashboard/', views.client_dashboard, name='client_dashboard'),
     path('dispatcher_dashboard/', views.dispatcher_dashboard, name='dispatcher_dashboard'),
-    path('register/client/', views.register_client, name='register_client'),
-    path('register/dispatcher/', views.register_dispatcher, name='register_dispatcher'),
+    # path('register/client/', views.register_client, name='register_client'),
+    # path('register/dispatcher/', views.register_dispatcher, name='register_dispatcher'),
     # path('register/client/', views.ClientSignUpView.as_view(), name='register_client'),
     # path('register/dispatcher/', views.DispatcherSignUpView.as_view(), name='register_dispatcher'),
 ]

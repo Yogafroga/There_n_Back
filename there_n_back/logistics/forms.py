@@ -3,16 +3,63 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import *
 from django.db import transaction
 
-class ClientRegistrationForm(UserCreationForm):
-    class Meta:
-        model = Client
-        fields = ['email', 'name', 'phone', 'type', 'password1', 'password2']
+
+# Cutom User Registration
+
+class ClientSignUpForm(UserCreationForm):
+    name = forms.CharField(required=True)
+    email = forms.EmailField(required=True)
+    phone = forms.CharField(required=True)
+    type = forms.ChoiceField(choices=Client.CLIENT_TYPE_CHOICES, required=True)
+
+    class Meta(UserCreationForm.Meta):
+        model = User
+    
+    @transaction.atomic
+    def save(self):
+        user = super().save(commit=False)
+        user.is_customer = True
+        user.name = self.cleaned_data.get('name')
+        user.email = self.cleaned_data.get('email')
+        user.save()
+        customer = Client.objects.create(user=user)
+        customer.phone=self.cleaned_data.get('phone')
+        customer.type=self.cleaned_data.get('type')
+        customer.save()
+        return user
+
+class DispatcherSignUpForm(UserCreationForm):
+    name = forms.CharField(required=True)
+    email = forms.EmailField(required=True)
+
+    class Meta(UserCreationForm.Meta):
+        model = User
+
+    @transaction.atomic
+    def save(self):
+        user = super().save(commit=False)
+        user.is_employee = True
+        user.is_staff = True
+        user.name = self.cleaned_data.get('name')
+        user.email = self.cleaned_data.get('email')
+        user.save()
+        employee = Dispatcher.objects.create(user=user)
+        employee.save()
+        return user
 
 
-class DispatcherRegistrationForm(UserCreationForm):
-    class Meta:
-        model = Dispatcher
-        fields = ['email', 'name', 'password1', 'password2']
+
+# class ClientRegistrationForm(UserCreationForm):
+#     class Meta:
+#         model = Client
+#         fields = ['email', 'name', 'phone', 'type', 'password1', 'password2']
+
+
+# class DispatcherRegistrationForm(UserCreationForm):
+#     class Meta:
+#         model = Dispatcher
+#         fields = ['email', 'name', 'password1', 'password2']
+
 
 class AddVehicleForm(forms.ModelForm):
     class Meta:

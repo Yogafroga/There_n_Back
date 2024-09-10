@@ -6,12 +6,16 @@
 <body>
     <h1>There n back</h1>
     <p>Welcome to our home page!</p>
-    <a href="{% url 'register_client' %}">
-        <button>Register as Client</button>
+
+    <hr/>
+    <a href="{% url 'customer_register' %}">
+        <button>Register as Customer</button>
     </a>
-    <a href="{% url 'register_dispatcher' %}">
-        <button>Register as Dispatcher</button>
+    <hr/>
+    <a href="{% url 'employee_register' %}">
+        <button>Register as Employee</button>
     </a>
+    <hr/>
     <a href="{% url 'login' %}">
         <button>Login</button>
     </a>
