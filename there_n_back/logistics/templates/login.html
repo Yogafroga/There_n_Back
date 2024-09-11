@@ -1,20 +1,51 @@
 <!DOCTYPE html>
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Tangerine&display=swap" rel="stylesheet">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>There'n'Back - Simple Shipping Solutions</title>
+    <link rel="stylesheet" href="login_style.css">
 </head>
 <body>
-    <h2>Login</h2>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Login</button>
-    </form>
+    <div class="container">
+        <header class="header">
+            <h1>There'n'Back</h1>
+            <p class="tagline">simple shipping solutions</p>
+        </header>
 
-    {% if form.errors %}
-        <p>Incorrect username or password. Try again</p>
-    {% endif %}
+        <main class="content">
+            <h2>Shipping made a 'ship tonne' easier</h2>
+
+            <div class="info-section">
+                <div class="contact-us">
+                    <h3>Contact Us</h3>
+                    <p><strong>Office Hours:</strong> 8am-4pm MSC</p>
+                    <p><strong>Customer Service:</strong> 1-800-GET-HELP</p>
+                    <p><strong>Active Shipments:</strong> 1-800-TRACK-BOX</p>
+                    <p><strong>Email:</strong> customerhelp@therenback.com</p>
+                </div>
+
+                <div class="login">
+                    <h3>Login</h3>
+                    <form action="#" method="post">
+                        <label for="email">Email:</label><br>
+                        <input type="email" id="email" name="email" required><br><br>
+
+                        <label for="password">Password:</label><br>
+                        <input type="password" id="password" name="password" required><br><br>
+
+                        <input type="submit" value="Login">
+                    </form>
+                    <p><a href="#">Forgot Password</a> | <a href="#">Create an Account</a></p>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>We courier so you don't have to!</p>
+            <p><a href="#">SHOP OUR MERCH TODAY</a></p>
+        </footer>
+    </div>
 </body>
 </html>
