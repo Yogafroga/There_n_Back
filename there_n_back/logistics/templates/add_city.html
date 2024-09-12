@@ -25,8 +25,20 @@
         <div class="form-container">
             <form method="post">
                 {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Add</button>
+                <!-- City Name -->
+                <label for="city_name">City Name:</label><br>
+                <input type="text" id="city_name" name="city_name" required><br><br>
+
+                <!-- Latitude -->
+                <label for="latitude">Latitude:</label><br>
+                <input type="text" id="latitude" name="latitude" required><br><br>
+
+                <!-- Longitude -->
+                <label for="longitude">Longitude:</label><br>
+                <input type="text" id="longitude" name="longitude" required><br><br>
+
+                <!-- Submit Button -->
+                <button type="submit">Add City</button>
             </form>
         </div>
         

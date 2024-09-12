@@ -26,8 +26,27 @@
         <div class="form-container">
             <form method="post">
                 {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Add</button>
+
+                <!-- City 1 Dropdown -->
+                <label for="city1">Select City 1:</label><br>
+                <select id="city1" name="city1" required>
+                    <option value="">--Choose City--</option>
+                    {% for city in cities %}
+                        <option value="{{ city.id }}">{{ city.name }}</option>
+                    {% endfor %}
+                </select><br><br>
+
+                <!-- City 2 Dropdown -->
+                <label for="city2">Select City 2:</label><br>
+                <select id="city2" name="city2" required>
+                    <option value="">--Choose City--</option>
+                    {% for city in cities %}
+                        <option value="{{ city.id }}">{{ city.name }}</option>
+                    {% endfor %}
+                </select><br><br>
+
+                <!-- Submit Button -->
+                <button type="submit">Add Route</button>
             </form>
         </div>
         

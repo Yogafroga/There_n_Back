@@ -26,10 +26,19 @@
         <div class="form-container">
             <form method="post">
                 {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Add</button>
+                <!-- Vehicle capacity -->
+                <label for="capacity">Capacity:</label><br>
+                <input type="text" id="capacity" name="capacity" required><br><br>
+
+                <!-- types -->
+                <label for="type">Vehicle type:</label><br>
+                <input type="text" id="type" name="type" required><br><br>
+
+                <!-- Submit Button -->
+                <button type="submit">Add Vehicle</button>
             </form>
         </div>
+        
         
         <div class="footer">
             <p>&copy; 2024 There'n'Back Company</p>

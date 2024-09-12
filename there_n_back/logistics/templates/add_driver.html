@@ -27,8 +27,31 @@
         <div class="form-container">
             <form method="post">
                 {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Add</button>
+                
+                <!-- Driver Name Input -->
+                <label for="driver-name">Driver Name:</label><br>
+                <input type="text" id="driver-name" name="driver_name" required><br><br>
+
+                <!-- License company Dropdown -->
+                <label for="license_company">License:</label><br>
+                <select id="license_company" name="license_company" required>
+                    <option value="">--Choose License Company--</option>
+                    {% for license_company in license_companies %}
+                        <option value="{{ license_company.id }}">{{ license_company.name }}</option>
+                    {% endfor %}
+                </select><br><br>
+
+                <!-- Vehicle Dropdown -->
+                <label for="vehicle">Vehicle:</label><br>
+                <select id="vehicle" name="vehicle" required>
+                    <option value="">--Choose Vehicle--</option>
+                    {% for vehicle in vehicles %}
+                        <option value="{{ vehicle.id }}">{{ vehicle.name }}</option>
+                    {% endfor %}
+                </select><br><br>
+
+                <!-- Submit Button -->
+                <button type="submit">Add Driver</button>
             </form>
         </div>
         
