@@ -1,18 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Leave a Review</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave a Review - There'n'Back Co.</title>
+    <link rel="stylesheet" href="main_pages_styles.css">
 </head>
 <body>
-    <h1>Leave a Review</h1>
-    <a href="{% url 'client_delivered' %}">
-        <button>Back</button>
-    </a>
+    <div class="header">
+        <div class="logo">📦 There'n'Back Co.</div>
+        <div class="header-right">
+            <a href="#">Logout</a>
+            <a href="#" class="profile">My Profile</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="header">
+            <h1>Leave a Review</h1>
+            <a href="{% url 'dashboard' %}">
+                <button>Back to Dashboard</button>
+            </a>
+        </div>
 
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Add</button>
-    </form>
+        <div class="main">
+            <form method="POST">
+                {% csrf_token %}
+                
+                <p>Write a concise but descriptive note about your experience with our company:</p>
+                <!--Need a text field here-->
+                <p><strong>{{ item.name }}</strong></p>
+                
+                <!-- Confirmation buttons -->
+                <input type="submit" value="Yes, Delete" class="btn-confirm"/>
+                <a href="{% url return_url %}" class="btn-cancel">Cancel</a>
+            </form>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2024 There'n'Back Company</p>
+        </div>
+    </div>
 </body>
 </html>
