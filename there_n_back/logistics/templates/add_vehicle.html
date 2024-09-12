@@ -1,18 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Add a vehicle</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a Vehicle - There'n'Back Co.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Tangerine&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="main_pages_styles.css">
 </head>
 <body>
-    <h1>Add a vehicle</h1>
-    <a href="{% url 'vehicles' %}">
-        <button>Back</button>
-    </a>
+    <div class="header">
+        <div class="logo">📦 There'n'Back Co.</div>
+        <div class="header-right">
+            <a href="#">Logout</a>
+            <a href="#" class="profile">My Profile</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="header">
+            <h1>Add a Vehicle</h1>
+            <a href="{% url 'vehicles' %}">
+                <button>Back</button>
+            </a>
+        </div>
 
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Add</button>
-    </form>
+        <div class="form-container">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Add</button>
+            </form>
+        </div>
+        
+        <div class="footer">
+            <p>&copy; 2024 There'n'Back Company</p>
+        </div>
+    </div>
 </body>
 </html>

@@ -1,18 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Add a city</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a City - There'n'Back Co.</title>
+    <link rel="stylesheet" href="main_pages_styles.css">
 </head>
 <body>
-    <h1>Add a city</h1>
-    <a href="{% url 'cities' %}">
-        <button>Back</button>
-    </a>
+    <div class="header">
+        <div class="logo">📦 There'n'Back Co.</div>
+        <div class="header-right">
+            <a href="#">Logout</a>
+            <a href="#" class="profile">My Profile</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="header">
+            <h1>Add a City</h1>
+            <a href="{% url 'cities' %}">
+                <button>Back</button>
+            </a>
+        </div>
 
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Add</button>
-    </form>
+        <div class="form-container">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Add</button>
+            </form>
+        </div>
+        
+        <div class="footer">
+            <p>&copy; 2024 There'n'Back Company</p>
+        </div>
+    </div>
 </body>
 </html>

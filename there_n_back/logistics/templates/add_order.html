@@ -1,18 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Add an order</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add an Order - There'n'Back Co.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Tangerine&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="main_pages_styles.css">
 </head>
 <body>
-    <h1>Add an order</h1>
-    <a href="{% url 'client_orders' %}">
-        <button>Back</button>
-    </a>
+    <div class="header">
+        <div class="logo">📦 There'n'Back Co.</div>
+        <div class="header-right">
+            <a href="#">Logout</a>
+            <a href="#" class="profile">My Profile</a>
+        </div>
+    </div>
 
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Add</button>
-    </form>
+    <div class="container">
+        <div class="header">
+            <h1>Add an Order</h1>
+            <a href="{% url 'orders' %}">
+                <button>Back</button>
+            </a>
+        </div>
+
+        <div class="form-container">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Add</button>
+            </form>
+        </div>
+        
+        <div class="footer">
+            <p>&copy; 2024 There'n'Back Company</p>
+        </div>
+    </div>
 </body>
 </html>
