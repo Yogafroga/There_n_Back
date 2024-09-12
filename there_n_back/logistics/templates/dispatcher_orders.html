@@ -3,30 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orders</title>
+    <title>Orders - There'n'Back Co.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Tangerine&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="main_pages_styles.css">
 </head>
 <body>
-    <h1>Orders</h1>
-    <a href="{% url 'dispatcher_dashboard' %}">
-        <button>Back</button>
-    </a><br>
-    <div class="main">
+    <div class="header">
+        <div class="logo">📦 There'n'Back Co.</div>
+        <div class="header-right">
+            <a href="#">Logout</a>
+            <a href="#" class="profile">My Profile</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="header">
+            <h1>Welcome, {{ user.name }}!</h1>
+            <p>This is your dispatcher dashboard.</p>
+        </div>
+
+
+        <div class="tabs">
+            <div href="{% url 'dispatcher_orders' %}" class="tab active">
+                Orders
+            </div>
+            <div href="{% url 'dispatcher_shipments' %}" class="tab">
+                Shipments
+            </div>
+            <div href="{% url 'dispatcher_delivered' %}" class="tab">
+                Delivered
+            </div>
+            <div href="{% url 'vehicles' %}" class="tab">
+                Vehicles
+            </div>
+            <div href="{% url 'drivers' %}" class="tab">
+                Drivers
+            </div>
+            <div href="{% url 'cities' %}" class="tab">
+                Cities
+            </div>
+            <div href="{% url 'routes' %}" class="tab">
+                Routes
+            </div>
+        </div>
+
+        <div class="orders-list"></div>
+
+            <div class="order">
+                {% for item in data %}
+            {{ item.city_connection }}<br/>
+            {{ item.pickup_location }}<br/>
+            {{ item.delivery_location }}<br/>
+            {{ item.planned_delivery }}<br/>
+            {{ item.weight }}<br/>
+            {{ item.volume }}<br/>
+            <a href="{% url 'view_order' item.id %}">View</a>
+            <a href="{% url 'reject_order' item.id %}">
+                <button>Reject</button>
+            </a>
+            <hr/>
         
-        {% for item in data %}
-        {{ item.city_connection }}<br/>
-        {{ item.pickup_location }}<br/>
-        {{ item.delivery_location }}<br/>
-        {{ item.planned_delivery }}<br/>
-        {{ item.weight }}<br/>
-        {{ item.volume }}<br/>
-        <a href="{% url 'view_order' item.id %}">View</a>
-        <a href="{% url 'reject_order' item.id %}">
-            <button>Reject</button>
-        </a>
-        <hr/>
-    
-        {% endfor %}
-    
-    </div>    
+            {% endfor %}
+            </div>
+            
+        </div>
+
+        <footer>
+            <p>&copy; 2024 There'n'Back Company</p>
+        </footer>
+    </div>
 </body>
 </html>

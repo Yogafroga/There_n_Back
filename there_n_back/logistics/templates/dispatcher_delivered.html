@@ -3,15 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shipments</title>
+    <title>Orders - There'n'Back Co.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Tangerine&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="main_pages_styles.css">
 </head>
 <body>
-    <h1>Shipments</h1>
-    <a href="{% url 'dispatcher_dashboard' %}">
-        <button>Back</button>
-    </a><br>
-    <div class="main">
-        
+    <div class="header">
+        <div class="logo">📦 There'n'Back Co.</div>
+        <div class="header-right">
+            <a href="#">Logout</a>
+            <a href="#" class="profile">My Profile</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="header">
+            <h1>Welcome, {{ user.name }}!</h1>
+            <p>This is your dispatcher dashboard.</p>
+        </div>
+
+
+        <div class="tabs">
+            <div href="{% url 'dispatcher_orders' %}" class="tab">
+                Orders
+            </div>
+            <div href="{% url 'dispatcher_shipments' %}" class="tab">
+                Shipments
+            </div>
+            <div href="{% url 'dispatcher_delivered' %}" class="tab active">
+                Delivered
+            </div>
+            <div href="{% url 'vehicles' %}" class="tab">
+                Vehicles
+            </div>
+            <div href="{% url 'drivers' %}" class="tab">
+                Drivers
+            </div>
+            <div href="{% url 'cities' %}" class="tab">
+                Cities
+            </div>
+            <div href="{% url 'routes' %}" class="tab">
+                Routes
+            </div>
+        </div>
+
+        <div class="orders-list"></div>
+
+                 
         {% for item in data %}
         {{ item.order.client }}<br/>
         {{ item.order.city_connection }}<br/>
@@ -36,6 +73,11 @@
     
         {% endfor %}
     
-    </div>    
+        </div>
+
+        <footer>
+            <p>&copy; 2024 There'n'Back Company</p>
+        </footer>
+    </div>
 </body>
 </html>
