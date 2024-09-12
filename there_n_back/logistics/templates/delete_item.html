@@ -3,17 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delete Item?</title>
+    <title>Delete Item - There'n'Back Co.</title>
+    <link rel="stylesheet" href="main_pages_styles.css">
 </head>
 <body>
-    <div class="main">
-        <form method="POST">
-            {% csrf_token %}
-            Are you sure that you want to delete this item ?
-            <input type="submit" value="Yes" />
-            <a href="/">Cancel </a>
-        </form>
+    <div class="container">
+        <div class="header">
+            <h1>Delete Item</h1>
+            <a href="{% url 'dashboard' %}">
+                <button>Back to Dashboard</button>
+            </a>
+        </div>
+
+        <div class="main">
+            <form method="POST">
+                {% csrf_token %}
+                
+                <p>Are you sure you want to delete this {{ item_type }}?</p>
+                
+                <!-- Details of the item (dynamic, could be a route, order, driver, etc.) -->
+                <p><strong>{{ item.name }}</strong></p>
+                
+                <!-- Confirmation buttons -->
+                <input type="submit" value="Yes, Delete" class="btn-confirm"/>
+                <a href="{% url return_url %}" class="btn-cancel">Cancel</a>
+            </form>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2024 There'n'Back Company</p>
+        </div>
     </div>
-    
 </body>
 </html>
