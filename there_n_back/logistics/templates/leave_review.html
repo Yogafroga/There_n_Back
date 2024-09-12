@@ -14,6 +14,7 @@
             <a href="#" class="profile">My Profile</a>
         </div>
     </div>
+
     <div class="container">
         <div class="header">
             <h1>Leave a Review</h1>
@@ -27,11 +28,14 @@
                 {% csrf_token %}
                 
                 <p>Write a concise but descriptive note about your experience with our company:</p>
-                <!--Need a text field here-->
-                <p><strong>{{ item.name }}</strong></p>
                 
+                <!-- Large text field for the review -->
+                <textarea name="review" rows="10" cols="50" placeholder="Share your thoughts..." class="text-area"></textarea>
+
+                <p><strong>{{ item.name }}</strong></p>
+
                 <!-- Confirmation buttons -->
-                <input type="submit" value="Yes, Delete" class="btn-confirm"/>
+                <input type="submit" value="Submit Review" class="btn-confirm"/>
                 <a href="{% url return_url %}" class="btn-cancel">Cancel</a>
             </form>
         </div>

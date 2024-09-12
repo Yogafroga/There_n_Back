@@ -164,3 +164,39 @@ form button {
     text-decoration: none;
     margin-left: 10px;
 }
+
+/* Center the content on the page */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 50px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    color: #FF4136;
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+/* Button styling */
+.btn {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
