@@ -4,24 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Order</title>
+    <link rel="stylesheet" href="main_pages_styles.css">
 </head>
 <body>
-    <h1>View Order</h1>
-    <a href="{% url 'dispatcher_orders' %}">
-        <button>Back</button>
-    </a><br>
-
-    {{ item.city_connection }}<br/>
-    {{ item.pickup_location }}<br/>
-    {{ item.delivery_location }}<br/>
-    {{ item.planned_delivery }}<br/>
-    {{ item.weight }}<br/>
-    {{ item.volume }}<br/>
-    <h2>Create Shipment Based On The Order</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Approve</button>
-    </form>
+    <div class="header">
+        <h1>View Order</h1>
+        <a href="{% url 'dispatcher_orders' %}">
+            <button class="btn">Back</button>
+        </a>
+    </div>
+    
+    <div class="main">
+        <div class="order-details">
+            <p><strong>City Connection:</strong> {{ item.city_connection }}</p>
+            <p><strong>Pickup Location:</strong> {{ item.pickup_location }}</p>
+            <p><strong>Delivery Location:</strong> {{ item.delivery_location }}</p>
+            <p><strong>Planned Delivery:</strong> {{ item.planned_delivery }}</p>
+            <p><strong>Weight:</strong> {{ item.weight }} kg</p>
+            <p><strong>Volume:</strong> {{ item.volume }} m³</p>
+        </div>
+        
+        <h2>Create Shipment Based On The Order</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn-submit">Approve</button>
+        </form>
+    </div>
 </body>
 </html>
