@@ -4,29 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cities</title>
+    <link rel="stylesheet" href="main_pages_styles.css">
 </head>
 <body>
-    <h1>Cities</h1>
-    <a href="{% url 'dispatcher_dashboard' %}">
-        <button>Back</button>
-    </a><br>
-    <a href="{% url 'add_city' %}">
-        <button>Add city</button>
-    </a>
-    <div class="main">
-        
-
-        {% for item in data %}
-        {{ item.city_name }}<br/>
-        {{ item.latitude }}<br/>
-        {{ item.longitude }}<br/>
-        <a href="{% url 'delete_city' item.id %}">
-            <button>Delete</button>
+    <div class="header">
+        <h1>Cities</h1>
+        <a href="{% url 'dispatcher_dashboard' %}">
+            <button class="btn">Back</button>
         </a>
+        <a href="{% url 'add_city' %}">
+            <button class="btn">Add City</button>
+        </a>
+    </div>
+    
+    <div class="main">
+        {% for item in data %}
+        <div class="city-item">
+            <p><strong>City Name:</strong> {{ item.city_name }}</p>
+            <p><strong>Latitude:</strong> {{ item.latitude }}</p>
+            <p><strong>Longitude:</strong> {{ item.longitude }}</p>
+            <a href="{% url 'delete_city' item.id %}">
+                <button class="btn-delete">Delete</button>
+            </a>
+        </div>
         <hr/>
-    
         {% endfor %}
-    
     </div>    
 </body>
 </html>
