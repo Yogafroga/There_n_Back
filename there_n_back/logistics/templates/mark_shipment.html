@@ -3,17 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mark shipment as delivered?</title>
+    <title>Mark Shipment as Delivered? - There'n'Back Co.</title>
+    <link rel="stylesheet" href="main_pages_styles.css">
 </head>
 <body>
-    <div class="main">
-        <form method="POST">
-            {% csrf_token %}
-            Are you sure that you want to mark this shipment as delivered?
-            <input type="submit" value="Yes" />
-            <a href="/">Cancel </a>
-        </form>
+    <div class="header">
+        <div class="logo">📦 There'n'Back Co.</div>
+        <div class="header-right">
+            <a href="#">Logout</a>
+            <a href="#" class="profile">My Profile</a>
+        </div>
     </div>
-    
+
+    <div class="container">
+        <h1>Mark Shipment as Delivered?</h1>
+        
+        <div class="confirmation-box">
+            <form method="POST">
+                {% csrf_token %}
+                <p>Are you sure that you want to mark this shipment as delivered?</p>
+                
+                <div class="action-buttons">
+                    <input type="submit" value="Yes, Mark as Delivered" class="btn-confirm" />
+                    <a href="{% url 'dispatcher_dashboard' %}" class="btn-cancel">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 There'n'Back Company</p>
+    </footer>
 </body>
 </html>

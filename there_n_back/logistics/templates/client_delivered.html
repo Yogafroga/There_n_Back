@@ -3,41 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delivered Shipments</title>
+    <title>Delivered Shipments - There'n'Back Co.</title>
+    <link rel="stylesheet" href="main_pages_styles.css">
 </head>
 <body>
-    <h1>Delivered Shipments</h1>
-    <a href="{% url 'client_dashboard' %}">
-        <button>Back</button>
-    </a><br>
-    <div class="main">
-        
-        {% for item in data %}
-        {{ item.order.city_connection }}<br/>
-        {{ item.order.pickup_location }}<br/>
-        {{ item.order.delivery_location }}<br/>
-        {{ item.order.planned_delivery }}<br/>
-        {{ item.order.weight }}<br/>
-        {{ item.order.volume }}<br/>
-        {{ item.status }}<br/>
-        {{ item.driver }}<br/>
-        {{ item.dispatcher }}<br/>
-        {{ item.price }}<br/>
-        <hr/>
-        <a href="{% url 'leave_review' item.id %}">
-            <button>Leave Review</button>
-        </a>
-        <hr/>
-        <b>Reviews</b><br/>
-        {% for review in item.reviews.all %}
-        {{ review.val }}<br/>
-        {{ review.contents }}<br/>
-        {{ review.review_date }}<br/>
-        {% endfor %}
-        <hr/>
-    
-        {% endfor %}
-    
-    </div>    
+    <div class="header">
+        <div class="logo">📦 There'n'Back Co.</div>
+        <div class="header-right">
+            <a href="#">Logout</a>
+            <a href="#" class="profile">My Profile</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Delivered Shipments</h1>
+
+        <div class="tabs">
+            <div class="tab"><a href="{% url 'client_dashboard' %}">Back</a></div>
+            <div class="tab active">Delivered Shipments</div>
+        </div>
+
+        <div class="shipments-list">
+            {% for item in data %}
+            <div class="shipment">
+                <p class="shipment-title">{{ item.order.city_connection }} <span class="status-delivered">Delivered</span></p>
+                <p><strong>From:</strong> {{ item.order.pickup_location }}</p>
+                <p><strong>To:</strong> {{ item.order.delivery_location }}</p>
+                <p><strong>Planned Delivery:</strong> {{ item.order.planned_delivery }}</p>
+                <p><strong>Weight:</strong> {{ item.order.weight }} kg</p>
+                <p><strong>Volume:</strong> {{ item.order.volume }} m³</p>
+                <p><strong>Driver:</strong> {{ item.driver }}</p>
+                <p><strong>Dispatcher:</strong> {{ item.dispatcher }}</p>
+                <p><strong>Price:</strong> ${{ item.price }}</p>
+
+                <div class="reviews">
+                    <h3>Reviews:</h3>
+                    {% for review in item.reviews.all %}
+                    <p><strong>Rating:</strong> {{ review.val }} / 5</p>
+                    <p>{{ review.contents }}</p>
+                    <p><strong>Date:</strong> {{ review.review_date }}</p>
+                    <hr/>
+                    {% endfor %}
+                </div>
+
+                <a href="{% url 'leave_review' item.id %}">
+                    <button class="btn-review">Leave Review</button>
+                </a>
+            </div>
+            <hr/>
+            {% endfor %}
+        </div>
+
+        <div class="pagination">Page 1/1</div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 There'n'Back Company</p>
+    </footer>
 </body>
 </html>
