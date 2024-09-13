@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,14 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add a Route - There'n'Back Co.</title>
     <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Tangerine&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="main_pages_styles.css">
+    <link rel="stylesheet" href="{% static 'css/main_pages_styles.css' %}">
 </head>
 <body>
     <div class="header">
         <div class="logo">📦 There'n'Back Co.</div>
         <div class="header-right">
-            <a href="#">Logout</a>
-            <a href="#" class="profile">My Profile</a>
+            <a href="{% url 'logout' %}">Logout</a>
         </div>
     </div>
     <div class="container">
@@ -26,26 +27,7 @@
         <div class="form-container">
             <form method="post">
                 {% csrf_token %}
-
-                <!-- City 1 Dropdown -->
-                <label for="city1">Select City 1:</label><br>
-                <select id="city1" name="city1" required>
-                    <option value="">--Choose City--</option>
-                    {% for city in cities %}
-                        <option value="{{ city.id }}">{{ city.name }}</option>
-                    {% endfor %}
-                </select><br><br>
-
-                <!-- City 2 Dropdown -->
-                <label for="city2">Select City 2:</label><br>
-                <select id="city2" name="city2" required>
-                    <option value="">--Choose City--</option>
-                    {% for city in cities %}
-                        <option value="{{ city.id }}">{{ city.name }}</option>
-                    {% endfor %}
-                </select><br><br>
-
-                <!-- Submit Button -->
+                {{ form.as_p }}
                 <button type="submit">Add Route</button>
             </form>
         </div>

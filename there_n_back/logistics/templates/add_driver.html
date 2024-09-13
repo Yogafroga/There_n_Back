@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,14 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add a Driver - There'n'Back Co.</title>
     <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Tangerine&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="main_pages_styles.css">
+    <link rel="stylesheet" href="{% static 'css/main_pages_styles.css' %}">
 </head>
 <body>
     <div class="header">
         <div class="logo">📦 There'n'Back Co.</div>
         <div class="header-right">
-            <a href="#">Logout</a>
-            <a href="#" class="profile">My Profile</a>
+            <a href="{% url 'logout' %}">Logout</a>
         </div>
     </div>
     
@@ -27,30 +27,7 @@
         <div class="form-container">
             <form method="post">
                 {% csrf_token %}
-                
-                <!-- Driver Name Input -->
-                <label for="driver-name">Driver Name:</label><br>
-                <input type="text" id="driver-name" name="driver_name" required><br><br>
-
-                <!-- License company Dropdown -->
-                <label for="license_company">License:</label><br>
-                <select id="license_company" name="license_company" required>
-                    <option value="">--Choose License Company--</option>
-                    {% for license_company in license_companies %}
-                        <option value="{{ license_company.id }}">{{ license_company.name }}</option>
-                    {% endfor %}
-                </select><br><br>
-
-                <!-- Vehicle Dropdown -->
-                <label for="vehicle">Vehicle:</label><br>
-                <select id="vehicle" name="vehicle" required>
-                    <option value="">--Choose Vehicle--</option>
-                    {% for vehicle in vehicles %}
-                        <option value="{{ vehicle.id }}">{{ vehicle.name }}</option>
-                    {% endfor %}
-                </select><br><br>
-
-                <!-- Submit Button -->
+                {{ form.as_p }}
                 <button type="submit">Add Driver</button>
             </form>
         </div>

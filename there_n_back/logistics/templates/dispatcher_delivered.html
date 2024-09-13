@@ -1,41 +1,99 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shipments</title>
+    <title>Orders - There'n'Back Co.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Tangerine&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/main_pages_styles.css' %}">
 </head>
 <body>
-    <h1>Shipments</h1>
-    <a href="{% url 'dispatcher_dashboard' %}">
-        <button>Back</button>
-    </a><br>
-    <div class="main">
+    <div class="header">
+        <div class="logo">📦 There'n'Back Co.</div>
+        <div class="header-right">
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="header">
+            <h1>Welcome, {{ user.name }}!</h1>
+            <p>This is your dispatcher dashboard.</p>
+        </div>
+
+
         
+        <div class="tabs">
+            <a href="{% url 'dispatcher_orders' %}">
+                <div class="tab">
+                Orders
+                </div>
+            </a>
+            <a href="{% url 'dispatcher_shipments' %}">
+                <div class="tab">
+                Shipments
+                </div>
+            </a>
+            <a href="{% url 'dispatcher_delivered' %}">
+                <div class="tab active">
+                Delivered
+                </div>
+            </a>
+            <a href="{% url 'vehicles' %}">
+                <div class="tab">
+                Vehicles
+                </div>
+            </a>
+            <a href="{% url 'drivers' %}">
+                <div class="tab">
+                Drivers
+                </div>
+            </a>
+            <a href="{% url 'cities' %}">
+                <div class="tab">
+                Cities
+                </div>
+            </a>
+            <a href="{% url 'routes' %}">
+                <div class="tab">
+                Routes
+                </div>
+            </a>            
+        </div>
+
+        <div class="orders-list"></div>
         {% for item in data %}
-        {{ item.order.client }}<br/>
-        {{ item.order.city_connection }}<br/>
-        {{ item.order.pickup_location }}<br/>
-        {{ item.order.delivery_location }}<br/>
-        {{ item.order.planned_delivery }}<br/>
-        {{ item.order.weight }}<br/>
-        {{ item.order.volume }}<br/>
-        {{ item.status }}<br/>
-        {{ item.driver }}<br/>
-        {{ item.dispatcher }}<br/>
-        {{ item.price }}<br/>
-        <hr/>
-        <b>Review</b><br/>
-        {% for review in item.reviews.all %}
-        {{ review.val }}<br/>
-        {{ review.contents }}<br/>
-        {{ review.review_date }}<br/>
+            <div class="order">
+                <p class="order-title">Order# {{ item.id }}<span class="status-delivered">{{ item.status }}</span> </p>
+                <strong>Client:</strong> {{ item.order.client }}<br/>
+                {{ item.order.city_connection }}<br/>
+                <strong>From:</strong> {{ item.order.pickup_location }}<br/>
+                <strong>To:</strong> {{ item.order.delivery_location }}<br/>
+                <strong>Planned Delivery:</strong> {{ item.order.planned_delivery }}<br/>
+                <strong>Weight:</strong> {{ item.order.weight }}<br/>
+                <strong>Volume:</strong> {{ item.order.volume }}<br/>
+                <strong>Status:</strong> {{ item.status }}<br/>
+                <strong>Driver:</strong> {{ item.driver }}<br/>
+                <strong>Dispatcher:</strong> {{ item.dispatcher }}<br/>
+                <strong>Price:</strong> {{ item.price }}<br/>
+                <div class="reviews">
+                    <h3>Reviews:</h3>
+                    <hr>
+                    {% for review in item.reviews.all %}
+                    <p><strong>Rating:</strong> {{ review.val }} / 5</p>
+                    <p>{{ review.contents }}</p>
+                    <p><strong>Date:</strong> {{ review.review_date }}</p>
+                    <hr/>
+                    {% endfor %}
+                </div>
+            </div>
         {% endfor %}
-        <hr/>
-        
     
-        {% endfor %}
-    
-    </div>    
+        </div>
+
+        <footer>
+            <p>&copy; 2024 There'n'Back Company</p>
+        </footer>
+    </div>
 </body>
 </html>

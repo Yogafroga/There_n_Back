@@ -1,39 +1,36 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Delete Item - There'n'Back Co.</title>
-    <link rel="stylesheet" href="main_pages_styles.css">
+    <link rel="stylesheet" href="{% static 'css/main_pages_styles.css' %}">
 </head>
 <body>
     <div class="header">
         <div class="logo">📦 There'n'Back Co.</div>
         <div class="header-right">
-            <a href="#">Logout</a>
-            <a href="#" class="profile">My Profile</a>
+            <a href="{% url 'logout' %}">Logout</a>
         </div>
     </div>
     <div class="container">
         <div class="header">
             <h1>Delete Item</h1>
-            <a href="{% url 'dashboard' %}">
-                <button>Back to Dashboard</button>
-            </a>
         </div>
 
         <div class="main">
             <form method="POST">
                 {% csrf_token %}
                 
-                <p>Are you sure you want to delete this {{ item_type }}?</p>
+                <p>Are you sure you want to delete this item?</p>
                 
                 <!-- Details of the item (dynamic, could be a route, order, driver, etc.) -->
                 <p><strong>{{ item.name }}</strong></p>
                 
                 <!-- Confirmation buttons -->
                 <input type="submit" value="Yes, Delete" class="btn-confirm"/>
-                <a href="{% url return_url %}" class="btn-cancel">Cancel</a>
+                <a href="{% url 'dispatcher_orders' %}" class="btn-cancel">Cancel</a>
             </form>
         </div>
 

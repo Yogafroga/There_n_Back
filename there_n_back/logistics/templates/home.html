@@ -1,23 +1,42 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html>
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Tangerine&display=swap" rel="stylesheet">
+<html lang="en">
 <head>
-    <title>Client Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>There'n'Back - Simple Shipping Solutions</title>
+    <link rel="stylesheet" href="{% static 'css/login_style.css' %}">
 </head>
 <body>
-    <h1>There n back</h1>
-    <p>Welcome to our home page!</p>
+    <div class="container">
+        <header class="header">
+            <h1>There'n'Back</h1>
+            <p class="tagline">simple shipping solutions</p>
+        </header>
 
-    <hr/>
-    <a href="{% url 'client_register' %}">
-        <button>Register as Customer</button>
-    </a>
-    <hr/>
-    <a href="{% url 'dispatcher_register' %}">
-        <button>Register as Employee</button>
-    </a>
-    <hr/>
-    <a href="{% url 'login' %}">
-        <button>Login</button>
-    </a>
+        <main class="content">
+            <h2>Shipping made a 'ship tonne' easier</h2>
+
+            <div class="info-section">
+                <a href="{% url 'client_register' %}">
+                    <button class="btn">Register as Customer</button>
+                </a>
+                <hr/>
+                <a href="{% url 'dispatcher_register' %}">
+                    <button class="btn">Register as Employee</button>
+                </a>
+                <hr/>
+                <a href="{% url 'login' %}">
+                    <button class="btn">Login </button>
+                </a>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>We courier so you don't have to!</p>
+        </footer>
+    </div>
 </body>
 </html>

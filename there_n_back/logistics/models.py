@@ -38,14 +38,14 @@ class Client(models.Model):
     phone = models.CharField(max_length=20)
     type = models.CharField(max_length=10, choices=CLIENT_TYPE_CHOICES)
 
-    # def __str__(self):
-    #     return super().name
+    def __str__(self):
+        return self.user.name
 
 class Dispatcher(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE, primary_key = True)
 
-    # def __str__(self):
-    #     return self.name
+    def __str__(self):
+        return self.user.name
 
 
 

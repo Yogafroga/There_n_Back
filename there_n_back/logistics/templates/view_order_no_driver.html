@@ -1,23 +1,37 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Order</title>
+    <link rel="stylesheet" href="{% static 'css/main_pages_styles.css' %}">
 </head>
 <body>
-    <h1>View Order</h1>
-    <a href="{% url 'dispatcher_orders' %}">
-        <button>Back</button>
-    </a><br>
+    <div class="container">
+        <div class="header">
+            <h1>View Order</h1>
+            <a href="{% url 'dispatcher_orders' %}">
+                <button class="btn">Back</button>
+            </a>
+        </div>
 
-    {{ item.city_connection }}<br/>
-    {{ item.pickup_location }}<br/>
-    {{ item.delivery_location }}<br/>
-    {{ item.planned_delivery }}<br/>
-    {{ item.weight }}<br/>
-    {{ item.volume }}<br/>
-    <h2>Create Shipment Based On The Order</h2>
-    <p>Can`t create a shipment: no available drivers!</p>
+        <div class="order-details">
+            <p><strong>Route:</strong> {{ item.city_connection }}</p>
+            <p><strong>Pickup Location:</strong> {{ item.pickup_location }}</p>
+            <p><strong>Delivery Location:</strong> {{ item.delivery_location }}</p>
+            <p><strong>Planned Delivery:</strong> {{ item.planned_delivery }}</p>
+            <p><strong>Weight:</strong> {{ item.weight }} kg</p>
+            <p><strong>Volume:</strong> {{ item.volume }} L</p>
+        </div>
+
+        <div class="shipment-section">
+            <h2>Create Shipment Based On The Order</h2>
+            <p class="no-drivers-warning">Can’t create a shipment: no available drivers!</p>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 There'n'Back Company</p>
+    </footer>
 </body>
 </html>

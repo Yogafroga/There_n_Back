@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Tangerine&display=swap" rel="stylesheet">
 <html lang="en">
@@ -5,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>There'n'Back - Simple Shipping Solutions</title>
-    <link rel="stylesheet" href="login_style.css">
+    <link rel="stylesheet" href="{% static 'css/login_style.css' %}">
 </head>
 <body>
     <div class="container">
@@ -28,23 +29,22 @@
 
                 <div class="login">
                     <h3>Login</h3>
-                    <form action="#" method="post">
-                        <label for="email">Email:</label><br>
-                        <input type="email" id="email" name="email" required><br><br>
-
-                        <label for="password">Password:</label><br>
-                        <input type="password" id="password" name="password" required><br><br>
-
-                        <input type="submit" value="Login">
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn">Login</button>
                     </form>
-                    <p><a href="#">Forgot Password</a> | <a href="#">Create an Account</a></p>
+                
+                    {% if form.errors %}
+                        <p>Incorrect username or password. Try again</p>
+                    {% endif %}
+                    <p><a href="{% url 'home' %}">Create an Account</a></p>
                 </div>
             </div>
         </main>
 
         <footer class="footer">
             <p>We courier so you don't have to!</p>
-            <p><a href="#">SHOP OUR MERCH TODAY</a></p>
         </footer>
     </div>
 </body>

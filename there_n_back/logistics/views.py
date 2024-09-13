@@ -48,9 +48,9 @@ def login_request(request):
             if user is not None :
                 login(request,user)
                 if user.is_dispatcher:
-                    return redirect('dispatcher_dashboard')
+                    return redirect('dispatcher_orders')
                 else:
-                    return redirect('client_dashboard')
+                    return redirect('client_orders')
             else:
                 messages.error(request,"Invalid username or password")
         else:
@@ -80,7 +80,14 @@ def no_access(request):
 @login_required
 @user_passes_test(client_check, login_url='no_access')
 def client_dashboard(request):
-    return render(request, 'client_dashboard.html')
+    client_orders = Order.objects.filter(client=request.user.client)
+    orders = client_orders.exclude(status='accepted')
+    shipments = Shipment.objects.filter(order__in = client_orders, status='in_transit')
+    delivered = Shipment.objects.filter(order__in = client_orders, status='delivered')
+    #reviews = ShipmentReview.objects.filter(shipment__in=delivered)
+    return render(request, 'client_dashboard.html', {'orders': orders,
+                                                      'shipments': shipments,
+                                                      'delivered': delivered})
 
 
 @login_required
@@ -295,6 +302,7 @@ def mark_shipment(request, pk):
     obj = get_object_or_404(Shipment, id = pk)
     if request.method == 'POST':
         obj.status = 'delivered'
+        obj.driver.is_available = True
         obj.save()
         return redirect('dispatcher_shipments')
     return render(request,'mark_shipment.html')

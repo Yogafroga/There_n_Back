@@ -1,14 +1,29 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Client Registration</title>
+    <link rel="stylesheet" href="{% static 'css/login_style.css' %}">
 </head>
 <body>
-    <h1>Register as a Client</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Register</button>
-    </form>
+    <div class="container">
+        <div class="header">
+            <h1>Register as a Client</h1>
+        </div>
+
+        <div class="content">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn">Register</button>
+            </form>
+        </div>
+
+        <div class="footer">
+            <p>Already have an account? <a href="{% url 'login' %}">Login here</a>.</p>
+        </div>
+    </div>
 </body>
 </html>

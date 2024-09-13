@@ -1,19 +1,39 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delete Item?</title>
+    <title>Reject order - There'n'Back Co.</title>
+    <link rel="stylesheet" href="{% static 'css/main_pages_styles.css' %}">
 </head>
 <body>
-    <div class="main">
-        <form method="POST">
-            {% csrf_token %}
-            Are you sure that you want to reject the order ?
-            <input type="submit" value="Yes" />
-            <a href="/">Cancel </a>
-        </form>
+    <div class="header">
+        <div class="logo">📦 There'n'Back Co.</div>
+        <div class="header-right">
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
     </div>
-    
+    <div class="container">
+        <div class="header">
+            <h1>Reject order</h1>
+        </div>
+
+        <div class="main">
+            <form method="POST">
+                {% csrf_token %}
+                
+                <p>Are you sure you want to reject this order?</p>
+                
+                <!-- Confirmation buttons -->
+                <input type="submit" value="Reject" class="btn-confirm"/>
+                <a href="{% url 'dispatcher_orders' %}" class="btn-cancel">Cancel</a>
+            </form>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2024 There'n'Back Company</p>
+        </div>
+    </div>
 </body>
 </html>

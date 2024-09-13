@@ -1,35 +1,54 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Dispatcher Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dispatcher Dashboard - There'n'Back Co.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Tangerine&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/main_pages_styles.css' %}">
 </head>
 <body>
-    <h1>Welcome, {{ user.name }}!</h1>
-    <p>This is your dispatcher dashboard.</p>
-    <a href="{% url 'dispatcher_orders' %}">
-        <button>Orders</button>
-    </a>
-    <a href="{% url 'dispatcher_shipments' %}">
-        <button>Shipments</button>
-    </a>
-    <a href="{% url 'dispatcher_delivered' %}">
-        <button>Delivered</button>
-    </a>
-    <a href="{% url 'vehicles' %}">
-        <button>Vehicles</button>
-    </a>
-    <a href="{% url 'drivers' %}">
-        <button>Drivers</button>
-    </a>
-    <a href="{% url 'cities' %}">
-        <button>Cities</button>
-    </a>
-    <a href="{% url 'routes' %}">
-        <button>Routes</button>
-    </a>
-    <form method="post" action="{% url 'logout' %}">
-        {% csrf_token %}
-        <button type="submit">Logout</button>
-    </form>
+    <div class="header">
+        <div class="logo">📦 There'n'Back Co.</div>
+        <div class="header-right">
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>Welcome, {{ user.name }}!</h1>
+            <p>This is your dispatcher dashboard.</p>
+        </div>
+
+        <div class="tabs">
+            <div href="{% url 'dispatcher_orders' %}" class="tab">
+                Orders
+            </div>
+            <div href="{% url 'dispatcher_shipments' %}" class="tab">
+                Shipments
+            </div>
+            <div href="{% url 'dispatcher_delivered' %}" class="tab">
+                Delivered
+            </div>
+            <div href="{% url 'vehicles' %}" class="tab">
+                Vehicles
+            </div>
+            <div href="{% url 'drivers' %}" class="tab">
+                Drivers
+            </div>
+            <div href="{% url 'cities' %}" class="tab">
+                Cities
+            </div>
+            <div href="{% url 'routes' %}" class="tab">
+                Routes
+            </div>
+        </div>
+        <footer>
+            <p>&copy; 2024 There'n'Back Company</p>
+        </footer>
+    </div>
 </body>
 </html>

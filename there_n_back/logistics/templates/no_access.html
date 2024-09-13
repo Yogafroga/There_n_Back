@@ -1,12 +1,20 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>No Access</title>
+    <link rel="stylesheet" href="{% static 'css/main_pages_styles.css' %}">
 </head>
 <body>
-    <h1>You have no access to this page!</h1>
-    <a href="{% url 'home' %}">Home</a>
+    <div class="container">
+        <h1>Access Denied</h1>
+        <p>You do not have permission to view this page.</p>
+
+    </div>
+    <footer>
+        <p>&copy; 2024 There'n'Back Company</p>
+    </footer>
 </body>
 </html>
