@@ -15,13 +15,11 @@
         </div>
     </div>
     <div class="container">
-        <div class="header">
-            <h1>Add a City</h1>
-            <a href="{% url 'cities' %}">
-                <button>Back</button>
-            </a>
-        </div>
-
+        
+        <h1>Add a City</h1>
+        <a href="{% url 'cities' %}">
+            <button>Back</button>
+        </a>
         <div class="form-container">
             <form method="post">
                 {% csrf_token %}
@@ -42,9 +40,9 @@
             </form>
         </div>
         
-        <div class="footer">
-            <p>&copy; 2024 There'n'Back Company</p>
-        </div>
     </div>
+    <footer>
+        <p>&copy; 2024 There'n'Back Company</p>
+    </footer>
 </body>
 </html>

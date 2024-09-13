@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Hanalei+Fill&family=Kurale&family=Simpletune&display=swap');
+
 body {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Kurale', sans-serif;
     color: #fff;
     background-image: url('road.png'); 
     background-size: cover;
@@ -11,6 +13,7 @@ body {
     justify-content: center;  
     align-items: center;      
 }
+
 .container {
     text-align: center;
     background-color: rgba(0, 0, 0, 0.5);
@@ -23,7 +26,7 @@ body {
     font-size: 60px;
     color: #8acceb;
     font-weight: bold;
-    font-family: Luckiest Guy, sans-serif;
+    font-family: 'Hanalei Fill', cursive;
     margin: 0;
 }
 
@@ -31,7 +34,7 @@ body {
     font-size: 18px;
     font-style: italic;
     color: #fff;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: 'Simpletune', cursive;
 }
 
 .content h2 {
@@ -45,6 +48,7 @@ body {
     justify-content: space-around;
     margin-bottom: 40px;
 }
+
 button {
     background-color: #3B3A82;
     color: #fff;
@@ -53,6 +57,7 @@ button {
     cursor: pointer;
     font-size: 16px;
 }
+
 .contact-us, .login {
     background-color: rgba(255, 255, 255, 0.3);
     padding: 20px;
@@ -80,9 +85,10 @@ form label {
 }
 
 form input[type="email"], form input[type="password"] {
-    width: 100%;
+    width: 95%; /* Adjust the width to allow space for the margin */
     padding: 8px;
     margin-bottom: 15px;
+    margin-right: 20px; /* Adds margin on the right */
     border: none;
     border-radius: 5px;
 }
