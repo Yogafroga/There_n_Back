@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Sriracha&family=Brygada+1918:wght@400;500;700&display=swap');
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Brygada 1918', serif;
     margin: 0;
     padding: 0;
     background-image: url('boxes.png');
@@ -20,6 +22,7 @@ body {
 .header .logo {
     font-size: 24px;
     font-weight: bold;
+    font-family: 'Sriracha', cursive;
 }
 
 .header-right a {
@@ -36,11 +39,12 @@ body {
 }
 
 .container {
-    max-width: 800px;
-    margin: 50px auto;
+    max-width: 600px;
+    margin: 0 auto;
     background-color: rgba(255, 255, 255, 0.2);
-    padding: 20px;
+    padding: 50px;
     border-radius: 10px;
+    text-align: left;
 }
 
 h1 {
@@ -165,20 +169,6 @@ form button {
     margin-left: 10px;
 }
 
-/* Center the content on the page */
-.container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 50px;
-    text-align: center;
-    font-family: Arial, sans-serif;
-}
-
-h1 {
-    color: #FF4136;
-    font-size: 36px;
-    margin-bottom: 20px;
-}
 
 p {
     font-size: 18px;
