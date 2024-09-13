@@ -8,14 +8,22 @@
 </head>
 <body>
     <div class="header">
+        <div class="logo">📦 There'n'Back Co.</div>
+        <div class="header-right">
+            <a href="#">Logout</a>
+            <a href="#" class="profile">My Profile</a>
+        </div>
+    </div>
+    <div class="container">
+
         <h1>Drivers</h1>
-        <a href="{% url 'dispatcher_dashboard' %}">
-            <button class="btn">Back</button>
-        </a>
         <a href="{% url 'add_driver' %}">
             <button class="btn">Add Driver</button>
         </a>
-    </div>
+        <a href="{% url 'dispatcher_dashboard' %}">
+            <button>Back</button>
+        </a>
+        
     
     <div class="main">
         {% for item in data %}
@@ -30,6 +38,7 @@
         </div>
         <hr/>
         {% endfor %}
+    </div>
     </div>
     <footer>
         <p>&copy; 2024 There'n'Back Company</p>

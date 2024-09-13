@@ -8,28 +8,36 @@
 </head>
 <body>
     <div class="header">
+        <div class="logo">📦 There'n'Back Co.</div>
+        <div class="header-right">
+            <a href="#">Logout</a>
+            <a href="#" class="profile">My Profile</a>
+        </div>
+    </div>
+    <div class="container">
+
         <h1>Cities</h1>
-        <a href="{% url 'dispatcher_dashboard' %}">
-            <button class="btn">Back</button>
-        </a>
         <a href="{% url 'add_city' %}">
             <button class="btn">Add City</button>
         </a>
+        <a href="{% url 'dispatcher_dashboard' %}"></a>
+            <button>Back</button>
+        </a>
+        
+        <div class="main">
+            {% for item in data %}
+            <div class="city-item">
+                <p><strong>City Name:</strong> {{ item.city_name }}</p>
+                <p><strong>Latitude:</strong> {{ item.latitude }}</p>
+                <p><strong>Longitude:</strong> {{ item.longitude }}</p>
+                <a href="{% url 'delete_city' item.id %}">
+                    <button class="btn-delete">Delete</button>
+                </a>
+            </div>
+            <hr/>
+            {% endfor %}
+        </div>    
     </div>
-    
-    <div class="main">
-        {% for item in data %}
-        <div class="city-item">
-            <p><strong>City Name:</strong> {{ item.city_name }}</p>
-            <p><strong>Latitude:</strong> {{ item.latitude }}</p>
-            <p><strong>Longitude:</strong> {{ item.longitude }}</p>
-            <a href="{% url 'delete_city' item.id %}">
-                <button class="btn-delete">Delete</button>
-            </a>
-        </div>
-        <hr/>
-        {% endfor %}
-    </div>    
     <footer>
         <p>&copy; 2024 There'n'Back Company</p>
     </footer>
